@@ -1,0 +1,194 @@
+<%- include('partials/header', { title: 'Nouveau établissement — ORIENT 6ÈME', annee_courante, currentPath: '/etablissements' }) %>
+
+<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Enregistrer un établissement</h1>
+<p style="color:var(--encre-douce); max-width:60ch; margin-bottom:2rem;">
+  La structure sera ajoutée à l'inventaire et pourra être sélectionnée dans les futurs placements.
+</p>
+
+<div class="card" style="max-width:560px;">
+  <form method="POST" style="display:flex; flex-direction:column; gap:1.2rem;">
+
+    <label style="font-weight:600; font-size:0.9rem;">
+      Nom de l'établissement
+      <input type="text" name="nom" required
+        style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+    </label>
+
+    <label style="font-weight:600; font-size:0.9rem;">
+      Type
+      <select name="type" required
+        style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem; background:var(--surface); color:var(--text);">
+        <option value="public">Public</option>
+        <option value="conventionné">Conventionné</option>
+        <option value="privé">Privé</option>
+      </select>
+    </label>
+
+    <div style="display:flex; gap:1rem;">
+      <label style="font-weight:600; font-size:0.9rem; flex:1;">
+        Commune
+        <input type="text" name="commune" required placeholder="ex. Libreville"
+          style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+      </label>
+      <label style="font-weight:600; font-size:0.9rem; flex:1;">
+        Quartier
+        <input type="text" name="quartier" required placeholder="ex. Glass"
+          style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+      </label>
+    </div>
+
+    <div style="display:flex; gap:0.75rem; align-items:flex-end; position:relative;">
+      <label style="font-weight:600; font-size:0.9rem; flex:1; margin-bottom:0;">
+        Adresse de l'établissement
+        <input type="text" name="adresse_recherche" id="adresse-etablissement" placeholder="ex. Quartier Glass, Libreville"
+          style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+      </label>
+      <button type="button" id="btn-geocode-etablissement" class="btn btn-ghost" style="white-space:nowrap; margin-bottom:0;">Trouver GPS</button>
+    </div>
+    <div id="suggestions-etablissement" style="display:none; position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--rayon-petit); box-shadow:0 8px 16px rgba(0,0,0,0.08); overflow:hidden; margin-top:-0.3rem; z-index:10;"></div>
+    <div id="geocode-status-etablissement" style="font-size:0.8rem; color:var(--encre-douce); min-height:1.2em; margin-top:-0.4rem;"></div>
+
+    <div style="display:flex; gap:1rem;">
+      <label style="font-weight:600; font-size:0.9rem; flex:1;">
+        Latitude
+        <input type="number" step="0.0001" name="latitude" id="latitude-etablissement" required placeholder="0.3901"
+          style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+      </label>
+      <label style="font-weight:600; font-size:0.9rem; flex:1;">
+        Longitude
+        <input type="number" step="0.0001" name="longitude" id="longitude-etablissement" required placeholder="9.4544"
+          style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+      </label>
+    </div>
+    <p style="font-size:0.8rem; color:var(--encre-douce); margin-top:-0.8rem;">
+      Astuce : la recherche GPS remplit automatiquement les coordonnées, et vous pouvez toujours corriger manuellement ensuite.
+    </p>
+
+    <label style="font-weight:600; font-size:0.9rem;">
+      Capacité d'accueil en 6ème
+      <input type="number" name="capacite_6eme" required min="1" placeholder="100"
+        style="width:100%; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--line); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
+    </label>
+
+    <div style="display:flex; gap:0.75rem; margin-top:0.5rem;">
+      <button type="submit" class="btn btn-primary">Sauvegarder la structure</button>
+      <a href="/etablissements" class="btn btn-ghost" style="color:var(--encre-douce); border-color:var(--encre-douce);">Retour</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const adresseInput = document.getElementById('adresse-etablissement');
+    const latitudeInput = document.getElementById('latitude-etablissement');
+    const longitudeInput = document.getElementById('longitude-etablissement');
+    const statusBox = document.getElementById('geocode-status-etablissement');
+    const suggestionsBox = document.getElementById('suggestions-etablissement');
+    const btn = document.getElementById('btn-geocode-etablissement');
+    let timer = null;
+
+    function remplirAdresse(resultat) {
+      adresseInput.value = resultat.label;
+      latitudeInput.value = Number(resultat.latitude).toFixed(4);
+      longitudeInput.value = Number(resultat.longitude).toFixed(4);
+      suggestionsBox.style.display = 'none';
+      suggestionsBox.innerHTML = '';
+      statusBox.textContent = 'Coordonnées trouvées : ' + resultat.label;
+      statusBox.style.color = 'var(--success)';
+    }
+
+    function afficherSuggestions(liste) {
+      suggestionsBox.innerHTML = '';
+      if (!liste || liste.length === 0) {
+        suggestionsBox.style.display = 'none';
+        return;
+      }
+
+      for (const item of liste) {
+        const bouton = document.createElement('button');
+        bouton.type = 'button';
+        bouton.textContent = item.label;
+        bouton.style.display = 'block';
+        bouton.style.width = '100%';
+        bouton.style.textAlign = 'left';
+        bouton.style.padding = '0.75rem 1rem';
+        bouton.style.border = 'none';
+        bouton.style.borderBottom = '1px solid var(--line)';
+        bouton.style.background = 'var(--surface)';
+        bouton.style.cursor = 'pointer';
+        bouton.style.fontSize = '0.9rem';
+        bouton.style.color = 'var(--text)';
+        bouton.addEventListener('click', function () {
+          remplirAdresse(item);
+        });
+        suggestionsBox.appendChild(bouton);
+      }
+      suggestionsBox.style.display = 'block';
+    }
+
+    function rechercherSuggestions() {
+      const adresse = (adresseInput.value || '').trim();
+      if (adresse.length < 3) {
+        suggestionsBox.style.display = 'none';
+        suggestionsBox.innerHTML = '';
+        return;
+      }
+
+      const url = new URL('/api/geocode', window.location.origin);
+      url.searchParams.set('adresse', adresse);
+      url.searchParams.set('mode', 'suggestions');
+
+      fetch(url.toString())
+        .then((reponse) => reponse.json())
+        .then((data) => {
+          if (data && data.suggestions) {
+            afficherSuggestions(data.suggestions);
+          }
+        })
+        .catch(() => {
+          suggestionsBox.style.display = 'none';
+        });
+    }
+
+    adresseInput.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(rechercherSuggestions, 300);
+    });
+
+    btn.addEventListener('click', async function () {
+      const adresse = (adresseInput.value || '').trim();
+      if (!adresse) {
+        statusBox.textContent = 'Saisissez d’abord une adresse pour la recherche GPS.';
+        statusBox.style.color = 'var(--danger)';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Recherche…';
+      statusBox.textContent = 'Recherche des coordonnées…';
+      statusBox.style.color = 'var(--encre-douce)';
+
+      try {
+        const url = new URL('/api/geocode', window.location.origin);
+        url.searchParams.set('adresse', adresse);
+
+        const reponse = await fetch(url.toString());
+        const data = await reponse.json();
+
+        if (!reponse.ok) {
+          throw new Error(data.error || 'Coordonnées introuvables.');
+        }
+
+        remplirAdresse(data);
+      } catch (erreur) {
+        statusBox.textContent = erreur.message || 'Impossible de trouver les coordonnées.';
+        statusBox.style.color = 'var(--danger)';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Trouver GPS';
+      }
+    });
+  });
+</script>
+
+<%- include('partials/footer') %>

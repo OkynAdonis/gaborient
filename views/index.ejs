@@ -1,0 +1,53 @@
+<%- include('partials/header', { title: 'Accueil — ORIENT 6ÈME', annee_courante, currentPath: '/' }) %>
+
+<section class="hero">
+  <div class="geo-signature" aria-hidden="true">
+    <svg viewBox="0 0 320 260">
+      <path class="leaf-shape" d="M230,40 C270,60 280,110 250,150 C220,190 170,190 150,150 C130,110 150,60 190,45 C205,39 218,36 230,40 Z"/>
+      <path class="leaf-vein" d="M190,45 C210,90 220,130 250,150" pathLength="200"/>
+      <path class="leaf-vein delay1" d="M205,70 C215,90 210,110 225,125" pathLength="200"/>
+      <path class="leaf-shape delay2" d="M120,120 C155,130 170,170 150,205 C130,240 85,245 65,215 C45,185 55,145 90,128 C100,123 110,118 120,120 Z"/>
+      <path class="leaf-vein delay2" d="M90,128 C105,160 115,190 150,205" pathLength="200"/>
+      <path class="leaf-vein delay3" d="M100,150 C110,165 108,180 122,192" pathLength="200"/>
+      <circle class="geo-dot" style="animation-delay:1.2s" cx="250" cy="150" r="4"/>
+      <circle class="geo-dot" style="animation-delay:1.6s" cx="150" cy="205" r="4"/>
+    </svg>
+  </div>
+  <span class="hero-eyebrow">Campagne d'affectation · CM2 → 6ème</span>
+  <h1>Placement scolaire fondé sur le mérite et la proximité</h1>
+  <p>
+    Cette plateforme calcule automatiquement des propositions d'affectation
+    en combinant le classement académique et la distance domicile–établissement,
+    tout en respectant les capacités disponibles.
+  </p>
+  <a href="/affectation" class="btn btn-primary btn-primary-alt">
+    Démarrer la simulation
+  </a>
+</section>
+
+<div class="releve">
+  <div class="releve-item card card--gabon">
+    <span class="chiffre"><%= nb_eleves %></span>
+    <span class="intitule">Candidats inscrits</span>
+  </div>
+  <div class="releve-item card card--gabon-blue">
+    <span class="chiffre"><%= nb_etablissements %></span>
+    <span class="intitule">Établissements enregistrés</span>
+  </div>
+  <div class="releve-item card card--gabon-yellow">
+    <span class="chiffre"><%= capacite_totale %></span>
+    <span class="intitule">Places ouvertes en 6ème</span>
+  </div>
+</div>
+
+<h2 class="section-title">Principe de calcul</h2>
+<div class="card">
+  <p style="color:var(--texte-att); max-width:70ch;">
+    Chaque dossier reçoit un score hybride basé sur la performance scolaire
+    et la distance réelle (Haversine). Le système distribue les places
+    en tenant compte des capacités, et ordonne les candidats non attribués
+    sur une liste d'attente selon leur rang.
+  </p>
+</div>
+
+<%- include('partials/footer') %>

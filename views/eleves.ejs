@@ -1,0 +1,52 @@
+<%- include('partials/header', { title: 'Candidats — ORIENT 6ÈME', annee_courante, currentPath: '/eleves' }) %>
+
+<div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+  <div>
+    <h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Postulants CM2</h1>
+    <p style="color:var(--encre-douce);">
+      <%= eleves.length %> dossier(s) saisi(s) pour la session de placement actuelle.
+    </p>
+  </div>
+  <div style="display:flex; gap:0.75rem;">
+    <a href="/eleves/importer" class="btn btn-primary">Charger un CSV de postulants</a>
+    <a href="/eleves/nouveau" class="btn btn-ghost" style="color:var(--encre-douce); border-color:var(--encre-douce);">+ Nouveau dossier</a>
+  </div>
+</div>
+<div style="margin-top:1.5rem;"></div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Élève</th>
+        <th>Moyenne</th>
+        <th>Adresse</th>
+        <th>Choix</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% eleves.forEach(e => { %>
+      <tr>
+        <td><strong><%= e.prenom %> <%= e.nom %></strong></td>
+        <td><%= Number(e.moyenne_generale).toFixed(1) %>/20</td>
+        <td><%= e.adresse %></td>
+        <td><%= Array.isArray(e.voeux) ? e.voeux.join(', ') : '' %></td>
+        <td>
+          <% if (e.statut === 'affecte') { %>
+            <span class="badge badge-affecte">Affecté</span>
+          <% } else if (e.statut === 'liste_attente') { %>
+            <span class="badge badge-attente">Liste d'attente</span>
+          <% } else if (e.statut === 'non_affecte') { %>
+            <span class="badge badge-non">Non affecté</span>
+          <% } else { %>
+            <span class="badge badge-eligible">En attente</span>
+          <% } %>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'ORIENT 6ÈME' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <% if (typeof extraHead !== 'undefined') { %>
+    <%- extraHead %>
+  <% } %>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand-group">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="masthead-text">
+          <span class="republique">Service national d'orientation</span>
+          <div class="ministere">ORIENT 6ÈME</div>
+        </div>
+      </div>
+      <div class="masthead-right">
+        <span class="annee-badge"><%= typeof annee_courante !== 'undefined' ? annee_courante : 'Année non définie' %></span>
+        <div style="display:flex; align-items:center; gap:0.6rem; position:relative;">
+          <button id="settings-toggle" class="btn btn-ghost" type="button" aria-expanded="false" aria-controls="settings-menu">⚙️</button>
+          <div id="settings-menu" style="display:none; position:absolute; right:0; top:50px; background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:0 10px 30px rgba(2,6,23,0.08); padding:0.75rem; z-index:120; min-width:140px;">
+            <label style="display:flex; align-items:center; gap:0.6rem; cursor:pointer; font-size:0.85rem;"> 
+              <input type="checkbox" id="theme-toggle"> Mode sombre
+            </label>
+          </div>
+        </div>
+        <form method="POST" action="/deconnexion" style="margin:0;">
+          <button type="submit" class="btn btn-ghost">Déconnexion</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar" aria-label="Navigation principale">
+    <div class="nav-shell">
+      <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <div class="nav-item dropdown" id="nav-links">
+        <button type="button" class="nav-trigger" aria-expanded="false">Navigation</button>
+        <div class="nav-submenu">
+          <a href="/" class="<%= typeof currentPath !== 'undefined' && currentPath === '/' ? 'active' : '' %>">Accueil</a>
+          <a href="/dashboard" class="<%= typeof currentPath !== 'undefined' && currentPath === '/dashboard' ? 'active' : '' %>">Tableau de bord</a>
+          <a href="/eleves" class="<%= typeof currentPath !== 'undefined' && currentPath === '/eleves' ? 'active' : '' %>">Candidats</a>
+          <a href="/etablissements" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/etablissements') ? 'active' : '' %>">Établissements</a>
+          <a href="/carte" class="<%= typeof currentPath !== 'undefined' && currentPath === '/carte' ? 'active' : '' %>">Carte des établissements</a>
+          <a href="/affectation" class="<%= typeof currentPath !== 'undefined' && currentPath === '/affectation' ? 'active' : '' %>">Placement</a>
+          <a href="/annee-scolaire" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/annee-scolaire') ? 'active' : '' %>">Périodes</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script src="/js/menu.js"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/js/remove_flags.js"></script>
+
+  <main class="page">

@@ -1,0 +1,6 @@
+{
+  "name": "GabOrient 6e",
+  "description": "Plateforme d'affectation automatisée et géolocalisée des élèves de CM2 en 6ème",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
