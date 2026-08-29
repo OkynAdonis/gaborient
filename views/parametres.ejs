@@ -1,0 +1,100 @@
+<%- include('partials/header', { title: 'Paramètres — ORIENT 6ÈME', annee_courante, currentPath: '/parametres' }) %>
+
+<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Paramètres de l'algorithme d'affectation</h1>
+<p style="color:var(--encre-douce); max-width:65ch; margin-bottom:2rem;">
+  Ajustez les pondérations et les critères ministériels utilisés pour le calcul des scores d'affectation des élèves de CM2 en classe de 6ème.
+</p>
+
+<% if (typeof succes !== 'undefined' && succes) { %>
+<div class="card" style="background:rgba(46, 204, 113, 0.1); border-color:var(--success); margin-bottom:2rem;">
+  <p style="color:var(--success); font-weight:600; margin:0;">Les paramètres ont été mis à jour avec succès.</p>
+</div>
+<% } %>
+
+<form method="POST" action="/parametres">
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
+    
+    <!-- Critères de score -->
+    <div class="card">
+      <h2 style="font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--encre);">Pondération des critères</h2>
+      
+      <label style="display:block; margin-bottom:1rem; font-size:0.9rem; font-weight:600;">
+        Poids de la moyenne académique (0 à 1)
+        <input type="number" step="0.05" min="0" max="1" name="poids_moyenne" value="<%= parametres.criteres.poids_moyenne %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+        <span style="font-size:0.8rem; color:var(--encre-douce); font-weight:normal;">Importance accordée aux notes scolaires.</span>
+      </label>
+
+      <label style="display:block; margin-bottom:0.5rem; font-size:0.9rem; font-weight:600;">
+        Poids de la distance géographique (0 à 1)
+        <input type="number" step="0.05" min="0" max="1" name="poids_distance" value="<%= parametres.criteres.poids_distance %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+        <span style="font-size:0.8rem; color:var(--encre-douce); font-weight:normal;">Importance accordée à la proximité du domicile.</span>
+      </label>
+    </div>
+
+    <!-- Seuils académiques -->
+    <div class="card">
+      <h2 style="font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--encre);">Seuils et notes</h2>
+      
+      <label style="display:block; margin-bottom:1rem; font-size:0.9rem; font-weight:600;">
+        Moyenne générale minimale requise (/20)
+        <input type="number" step="0.5" min="0" max="20" name="minimale_requise" value="<%= parametres.moyenne.minimale_requise %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+        <span style="font-size:0.8rem; color:var(--encre-douce); font-weight:normal;">En dessous de ce seuil, l'élève est orienté en soutien/non affecté par défaut.</span>
+      </label>
+
+      <label style="display:block; margin-bottom:0.5rem; font-size:0.9rem; font-weight:600;">
+        Échelle de notation de référence
+        <input type="number" step="1" min="10" max="100" name="echelle" value="<%= parametres.moyenne.echelle %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+      </label>
+    </div>
+
+    <!-- Rayon et distance -->
+    <div class="card">
+      <h2 style="font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--encre);">Périmètre géographique</h2>
+      
+      <label style="display:block; margin-bottom:1rem; font-size:0.9rem; font-weight:600;">
+        Rayon de recherche maximal (en km)
+        <input type="number" step="0.5" min="1" max="50" name="rayon_max_km" value="<%= parametres.distance.rayon_max_km %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+        <span style="font-size:0.8rem; color:var(--encre-douce); font-weight:normal;">Distance maximale admise entre le domicile et l'établissement demandé.</span>
+      </label>
+
+      <label style="display:block; margin-bottom:0.5rem; font-size:0.9rem; font-weight:600;">
+        Nombre maximum de vœux par élève
+        <input type="number" step="1" min="1" max="5" name="nombre_max_voeux" value="<%= parametres.voeux.nombre_max_voeux %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+      </label>
+    </div>
+
+    <!-- Capacités et surbooking -->
+    <div class="card">
+      <h2 style="font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--encre);">Capacités d'accueil</h2>
+      
+      <label style="display:block; margin-bottom:1rem; font-size:0.9rem; font-weight:600;">
+        Marge de surbooking tolérée (0 à 0.2)
+        <input type="number" step="0.01" min="0" max="0.3" name="marge_surbooking" value="<%= parametres.capacite.marge_surbooking %>" required
+          style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text);">
+        <span style="font-size:0.8rem; color:var(--encre-douce); font-weight:normal;">Dépassement autorisé de la capacité officielle des classes (ex: 0.05 = +5%).</span>
+      </label>
+
+      <label style="display:block; margin-bottom:0.5rem; font-size:0.9rem; font-weight:600;">
+        Ordre de priorité de la file d'attente
+        <select name="priorite_file_attente" style="display:block; width:100%; margin-top:0.3rem; padding:0.6rem; border:1px solid var(--line); border-radius:var(--rayon-petit); background:var(--surface); color:var(--text); font-family:inherit;">
+          <option value="moyenne_desc" <%= parametres.capacite.priorite_file_attente === 'moyenne_desc' ? 'selected' : '' %>>Par moyenne générale décroissante</option>
+          <option value="distance_asc" <%= parametres.capacite.priorite_file_attente === 'distance_asc' ? 'selected' : '' %>>Par proximité géographique</option>
+        </select>
+      </label>
+    </div>
+
+  </div>
+
+  <div style="display:flex; gap:1rem;">
+    <button type="submit" class="btn btn-primary">Enregistrer les paramètres</button>
+    <a href="/dashboard" class="btn btn-ghost" style="color:var(--encre-douce); border-color:var(--encre-douce);">Retour au tableau de bord</a>
+  </div>
+</form>
+
+<%- include('partials/footer') %>

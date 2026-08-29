@@ -67,8 +67,8 @@ etablissements:
   type: public
   commune: Akanda
   quartier: Centre
-  latitude: 0.52
-  longitude: 9.41
+  latitude: 0.5300
+  longitude: 9.4450
   capacite_6eme: 150
   places_occupees: 0
 - id: GAB009
@@ -94,8 +94,8 @@ etablissements:
   type: conventionné
   commune: Libreville
   quartier: Mont-Bouët
-  latitude: 0.3746
-  longitude: 9.4387
+  latitude: 0.3950
+  longitude: 9.4580
   capacite_6eme: 130
   places_occupees: 0
 - id: GAB012
@@ -107,4 +107,3 @@ etablissements:
   longitude: 9.4809
   capacite_6eme: 115
   places_occupees: 0
-

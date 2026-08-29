@@ -26,12 +26,16 @@
       <% } %>
 
       <form method="POST">
-        <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:1.5rem;">
-          Clé d'accès administrateur
-          <input type="password" name="mot_de_passe" required autofocus
+        <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:1rem;">
+          Clé d'accès ou année de session
+          <input type="password" name="mot_de_passe" value="Gabon 2026" required autofocus
             style="width:100%; margin-top:0.4rem; padding:0.8rem; border:1px solid var(--parchemin-fonce); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem;">
         </label>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Se connecter</button>
+        <p style="font-size:0.8rem; color:var(--encre-douce); margin-bottom:1.25rem;">
+          Astuce présentation : Entrez <strong>Gabon 2026</strong> ou validez directement.
+        </p>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-bottom:0.75rem;">Se connecter</button>
+        <button type="submit" name="mot_de_passe" value="Gabon 2026" class="btn btn-ghost" style="width:100%; justify-content:center; font-size:0.85rem; border-color:var(--encre-douce); color:var(--encre-douce);">Accès direct (Gabon 2026)</button>
       </form>
     </div>
   </div>
