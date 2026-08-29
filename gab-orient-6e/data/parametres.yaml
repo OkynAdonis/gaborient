@@ -1,0 +1,28 @@
+# Paramètres ministériels — Algorithme d'affectation CM2 -> 6ème
+# GAB-ORIENT 6è
+
+criteres:
+  # Poids relatifs des critères dans le score final de classement
+  poids_moyenne: 0.6          # importance de la moyenne académique
+  poids_distance: 0.4         # importance de la proximité géographique
+
+moyenne:
+  minimale_requise: 10.0       # moyenne générale minimale pour être éligible
+  echelle: 20.0                 # notes sur 20
+
+distance:
+  rayon_max_km: 15.0            # rayon de recherche autour du domicile de l'élève
+  unite: "km"
+
+capacite:
+  marge_surbooking: 0.0         # marge tolérée au-delà de la capacité officielle (0 = aucune)
+  priorite_file_attente: "moyenne_desc"  # tri de la file d'attente par moyenne décroissante
+
+voeux:
+  nombre_max_voeux: 3           # nombre de voeux d'établissement par élève
+  respect_ordre_preference: true
+
+rapport:
+  formats_export: ["yaml", "json"]
+  inclure_liste_attente: true
+  inclure_taux_remplissage: true

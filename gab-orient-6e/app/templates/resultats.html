@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Résultats — ORIENT 6ÈME{% endblock %}
+
+{% block content %}
+{% if archive %}
+<div style="background:rgba(217,146,46,0.15); color:#92600F; padding:0.9rem 1.25rem; border-radius:var(--rayon-petit); margin-bottom:1.5rem; font-weight:600;">
+  Archive — année scolaire {{ rapport.annee or '?' }} (lecture seule)
+</div>
+{% endif %}
+<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">
+  Résultats de la session {% if rapport.annee %}— {{ rapport.annee }}{% endif %}
+</h1>
+{% if not archive %}
+<p style="color:var(--encre-douce); margin-bottom:1rem;">
+  Le rapport a été produit et est disponible dans le dossier <code>output/</code> au format YAML et JSON.
+</p>
+{% endif %}
+
+<div class="releve">
+  <div class="releve-item card card--gabon">
+    <span class="chiffre">{{ rapport.resume.total_affectes }}</span>
+    <span class="intitule">Placés</span>
+  </div>
+  <div class="releve-item card card--gabon-blue">
+    <span class="chiffre">{{ rapport.resume.total_liste_attente }}</span>
+    <span class="intitule">En attente</span>
+  </div>
+  <div class="releve-item card card--gabon-yellow">
+    <span class="chiffre">{{ rapport.resume.total_non_affectes }}</span>
+    <span class="intitule">Sans attribution</span>
+  </div>
+  <div class="releve-item card card--gabon">
+    <span class="chiffre">{{ rapport.resume.total_eleves }}</span>
+    <span class="intitule">Total dossiers</span>
+  </div>
+</div>
+
+<h2 class="section-title">Taux de remplissage des établissements</h2>
+<div class="card">
+  {% for etab in rapport.etablissements %}
+  <div style="margin-bottom:1.1rem;">
+    <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+      <span><strong>{{ etab.nom }}</strong></span>
+      <span>{{ etab.places_occupees }}/{{ etab.capacite_6eme }} ({{ etab.taux_remplissage }}%)</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" style="width: {{ etab.taux_remplissage }}%;"></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<h2 class="section-title">Élèves affectés</h2>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Élève</th><th>Moyenne</th><th>Établissement</th><th>Distance</th></tr>
+    </thead>
+    <tbody>
+      {% for e in rapport.affectations %}
+      <tr>
+        <td>{{ e.prenom }} {{ e.nom }}</td>
+        <td>{{ e.moyenne_generale }}/20</td>
+        <td>{{ e.etablissement_affecte }}</td>
+        <td>{{ e.distance_affectation_km }} km</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if rapport.liste_attente %}
+<h2 class="section-title">Liste d'attente</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Élève</th><th>Moyenne</th></tr></thead>
+    <tbody>
+      {% for e in rapport.liste_attente %}
+      <tr><td>{{ e.prenom }} {{ e.nom }}</td><td>{{ e.moyenne_generale }}/20</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}
+

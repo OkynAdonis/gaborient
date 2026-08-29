@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Importer postulants — ORIENT 6ÈME{% endblock %}
+
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+  <div>
+    <h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Charger des dossiers en masse</h1>
+    <p style="color:var(--encre-douce); max-width:60ch;">
+      Importez plusieurs dossiers simultanément pour préparer rapidement une cohorte complète.
+    </p>
+  </div>
+  <a href="{{ url_for('nouvel_eleve') }}" class="btn btn-ghost" style="color:var(--encre-douce); border-color:var(--encre-douce);">
+    Ajouter un seul candidat
+  </a>
+</div>
+
+{% if nb_importes > 0 %}
+<div style="background:rgba(31,77,44,0.1); color:var(--canopee); padding:1rem 1.25rem; border-radius:var(--rayon-petit); margin:1.5rem 0; font-weight:600;">
+  {{ nb_importes }} dossier(s) importé(s) avec succès.
+  <a href="{{ url_for('liste_eleves') }}" style="text-decoration:underline;">Voir la liste des postulants</a>
+</div>
+{% endif %}
+
+{% if erreurs %}
+<div style="background:rgba(168,72,31,0.1); color:var(--laterite); padding:1rem 1.25rem; border-radius:var(--rayon-petit); margin:1.5rem 0;">
+  <strong>Problème(s) rencontré(s) :</strong>
+  <ul style="margin:0.5rem 0 0 1.2rem;">
+    {% for e in erreurs %}<li>{{ e }}</li>{% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="card" style="max-width:640px; margin-top:1.5rem;">
+  <h3 style="font-size:1.05rem; margin-bottom:1rem;">1. Préparez le fichier</h3>
+    <p style="color:var(--encre-douce); font-size:0.92rem; margin-bottom:1rem;">
+    Fournissez un fichier <strong>CSV</strong> (séparateur `;`) contenant les colonnes ci-dessous :
+  </p>
+  <div class="table-wrap" style="margin-bottom:1rem;">
+    <table style="font-size:0.85rem;">
+      <thead>
+        <tr><th>nom</th><th>prenom</th><th>moyenne_generale</th><th>adresse</th><th>latitude</th><th>longitude</th><th>voeux</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nguema</td><td>Sarah</td><td>15.8</td><td>Quartier Glass</td><td>0.3895</td><td>9.4530</td><td>GAB001,GAB009</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="color:var(--encre-douce); font-size:0.85rem; margin-bottom:1rem;">
+    La colonne <code>voeux</code> contient les identifiants d'établissements séparés par des virgules
+    (voir la page <a href="{{ url_for('liste_etablissements') }}" style="text-decoration:underline;">Établissements</a> pour les identifiants).
+    Depuis Excel : "Enregistrer sous" → "CSV UTF-8 (délimité par des virgules)".
+  </p>
+  <a href="{{ url_for('modele_csv') }}" class="btn btn-ghost" style="color:var(--canopee); border-color:var(--canopee);">
+    Télécharger le modèle CSV
+  </a>
+</div>
+
+<div class="card" style="max-width:640px; margin-top:1.5rem;">
+  <h3 style="font-size:1.05rem; margin-bottom:1rem;">2. Chargez-le</h3>
+  <form method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:1.2rem;">
+    <input type="file" name="fichier_csv" accept=".csv" required
+      style="padding:0.7rem; border:1px dashed var(--parchemin-fonce); border-radius:var(--rayon-petit); background:var(--parchemin);">
+    <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Charger les dossiers</button>
+  </form>
+</div>
+{% endblock %}
+

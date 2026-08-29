@@ -1,0 +1,134 @@
+eleves:
+  ELV001:
+    statut: affecte
+    etablissement_affecte: GAB001
+    distance_affectation_km: 0.17
+  ELV002:
+    statut: affecte
+    etablissement_affecte: GAB003
+    distance_affectation_km: 0.24
+  ELV003:
+    statut: affecte
+    etablissement_affecte: GAB004
+    distance_affectation_km: 0.12
+  ELV004:
+    statut: affecte
+    etablissement_affecte: GAB002
+    distance_affectation_km: 0.25
+  ELV005:
+    statut: affecte
+    etablissement_affecte: GAB011
+    distance_affectation_km: 0.4
+  ELV006:
+    statut: affecte
+    etablissement_affecte: GAB006
+    distance_affectation_km: 0.26
+  ELV007:
+    statut: affecte
+    etablissement_affecte: GAB005
+    distance_affectation_km: 0.06
+  ELV008:
+    statut: affecte
+    etablissement_affecte: GAB002
+    distance_affectation_km: 0.26
+  ELV009:
+    statut: affecte
+    etablissement_affecte: GAB010
+    distance_affectation_km: 0.27
+  ELV010:
+    statut: affecte
+    etablissement_affecte: GAB008
+    distance_affectation_km: 0.44
+  ELV011:
+    statut: affecte
+    etablissement_affecte: GAB003
+    distance_affectation_km: 0.88
+  ELV012:
+    statut: affecte
+    etablissement_affecte: GAB001
+    distance_affectation_km: 1.15
+  ELV013:
+    statut: affecte
+    etablissement_affecte: GAB001
+    distance_affectation_km: 0.13
+  ELV014:
+    statut: affecte
+    etablissement_affecte: GAB011
+    distance_affectation_km: 1.12
+  ELV015:
+    statut: affecte
+    etablissement_affecte: GAB001
+    distance_affectation_km: 0.45
+  ELV016:
+    statut: affecte
+    etablissement_affecte: GAB006
+    distance_affectation_km: 3.08
+  ELV017:
+    statut: affecte
+    etablissement_affecte: GAB007
+    distance_affectation_km: 2.7
+  ELV018:
+    statut: affecte
+    etablissement_affecte: GAB002
+    distance_affectation_km: 0.94
+  ELV019:
+    statut: affecte
+    etablissement_affecte: GAB001
+    distance_affectation_km: 0.1
+  ELV020:
+    statut: affecte
+    etablissement_affecte: GAB012
+    distance_affectation_km: 0.33
+  ELV021:
+    statut: affecte
+    etablissement_affecte: GAB005
+    distance_affectation_km: 0.56
+  ELV022:
+    statut: affecte
+    etablissement_affecte: GAB003
+    distance_affectation_km: 0.06
+  ELV023:
+    statut: affecte
+    etablissement_affecte: GAB004
+    distance_affectation_km: 0.15
+  ELV024:
+    statut: affecte
+    etablissement_affecte: GAB002
+    distance_affectation_km: 0.18
+  ELV025:
+    statut: affecte
+    etablissement_affecte: GAB004
+    distance_affectation_km: 6.04
+  ELV026:
+    statut: affecte
+    etablissement_affecte: GAB006
+    distance_affectation_km: 3.23
+  ELV027:
+    statut: affecte
+    etablissement_affecte: GAB003
+    distance_affectation_km: 13.66
+etablissements:
+  GAB001:
+    places_occupees: 5
+  GAB002:
+    places_occupees: 4
+  GAB003:
+    places_occupees: 4
+  GAB004:
+    places_occupees: 3
+  GAB005:
+    places_occupees: 2
+  GAB006:
+    places_occupees: 3
+  GAB007:
+    places_occupees: 1
+  GAB008:
+    places_occupees: 1
+  GAB009:
+    places_occupees: 0
+  GAB010:
+    places_occupees: 1
+  GAB011:
+    places_occupees: 2
+  GAB012:
+    places_occupees: 1

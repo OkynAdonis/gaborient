@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Périodes — ORIENT 6ÈME{% endblock %}
+
+{% block content %}
+<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Gestion des périodes scolaires</h1>
+<p style="color:var(--encre-douce); max-width:65ch; margin-bottom:2rem;">
+  Les établissements sont conservés d'une période à l'autre. Les dossiers
+  candidats et les résultats d'une session restent attachés à l'année
+  correspondante et peuvent être consultés dans les archives.
+</p>
+
+<div class="releve">
+  <div class="releve-item card card--gabon">
+    <span class="chiffre">{{ annee_courante }}</span>
+    <span class="intitule">Année scolaire active</span>
+  </div>
+  <div class="releve-item card card--gabon-blue">
+    <span class="chiffre">{{ nb_eleves }}</span>
+    <span class="intitule">Candidats enregistrés</span>
+  </div>
+  <div class="releve-item card card--gabon-yellow">
+    <span class="chiffre">{{ 'Oui' if campagne_en_cours else 'Non' }}</span>
+    <span class="intitule">Campagne déjà exécutée</span>
+  </div>
+  <div class="releve-item card card--gabon">
+    <span class="chiffre">{{ archives|length }}</span>
+    <span class="intitule">Années archivées</span>
+  </div>
+</div>
+
+<h2 class="section-title">Démarrer une nouvelle année scolaire</h2>
+<div class="card">
+  <p style="color:var(--encre-douce); margin-bottom:1.25rem; max-width:60ch;">
+    Cette action archive « <strong>{{ annee_courante }}</strong> » (candidats + résultat
+    de campagne), puis vide la liste des candidats pour la nouvelle cohorte.
+    <strong>Rien n'est supprimé</strong> : tout reste consultable dans les archives ci-dessous.
+  </p>
+  <form method="POST" action="{{ url_for('nouvelle_annee_scolaire') }}"
+        style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:flex-end;"
+        onsubmit="return confirm('Archiver ' + '{{ annee_courante }}' + ' et repartir sur une liste de candidats vide ?');">
+    <label style="font-weight:600; font-size:0.9rem;">
+      Libellé de la nouvelle période
+      <input type="text" name="nouvelle_annee" placeholder="ex. 2026-2027" required
+        style="display:block; margin-top:0.4rem; padding:0.7rem; border:1px solid var(--parchemin-fonce); border-radius:var(--rayon-petit); font-family:inherit; font-size:0.95rem; width:220px;">
+    </label>
+    <button type="submit" class="btn btn-primary">Archiver et ouvrir la nouvelle période</button>
+  </form>
+</div>
+
+<h2 class="section-title">Ajouter les candidats de la nouvelle cohorte</h2>
+<div class="card">
+    <p style="color:var(--encre-douce); margin-bottom:1.25rem;">
+    Après archivage, chargez la nouvelle cohorte via CSV ou saisissez les
+    dossiers individuellement selon vos besoins.
+  </p>
+  <div style="display:flex; gap:0.75rem;">
+    <a href="{{ url_for('importer_eleves') }}" class="btn btn-primary">Charger CSV de la cohorte</a>
+    <a href="{{ url_for('nouvel_eleve') }}" class="btn btn-ghost" style="color:var(--encre-douce); border-color:var(--encre-douce);">+ Nouveau dossier</a>
+  </div>
+</div>
+
+{% if archives %}
+<h2 class="section-title">Archives des années précédentes</h2>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Année scolaire</th><th>Archivée le</th><th>Affectés</th><th>Liste d'attente</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for a in archives %}
+      <tr>
+        <td><strong>{{ a.annee }}</strong></td>
+        <td>{{ a.archive_le }}</td>
+        <td>{{ a.resume.total_affectes if a.resume else '—' }}</td>
+        <td>{{ a.resume.total_liste_attente if a.resume else '—' }}</td>
+        <td>
+          {% if a.resume %}
+          <a href="{{ url_for('voir_archive', slug=a.slug) }}" style="text-decoration:underline; color:var(--canopee); font-weight:600;">Voir</a>
+          {% else %}
+          <span style="color:var(--encre-douce);">Aucune campagne exécutée</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

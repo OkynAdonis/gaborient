@@ -1,0 +1,24 @@
+*Conception et développement de GAB-ORIENT 6è : Solution logicielle Python/YAML pour l'affectation automatisée et géolocalisée des élèves de CM2 en classe de 6ème au Gabon*
+
+*Objectifs stratégiques*: 
+Digitaliser et équilibrer l'accès à l'enseignement secondaire : Automatiser le processus d'orientation pour éliminer la gestion manuelle des dossiers, réduire les disparités territoriales et optimiser le taux d'occupation des collèges et lycées public/conventionnés.
+
+Réduire l'impact des mobilités urbaines : Limiter les temps de trajet quotidiens des élèves en intégrant la proximité géographique comme critère d'affectation prépondérant.
+
+Garantir la transparence et la méritocratie : Appliquer une politique d'orientation objective fondée sur le mérite académique (moyenne générale) et des règles ministérielles claires.
+
+*Objectifs opérationnels*:
+Modéliser les données et la configuration via YAML : Concevoir les structures de données pour stocker les profils des élèves (notes, adresse, vœux), la carte scolaire (coordonnées GPS, capacités d'accueil) et les paramètres de l'algorithme ministériel.
+
+Développer le moteur d'orientation en Python : Écrire les algorithmes d'analyse, de calcul de distance géographique (ex: formule de Haversine ou calcul matriciel) et de classement multicritère.
+
+Gérer les contraintes de capacité des établissements : Implémenter un système de file d'attente prioritaire pour affecter les élèves selon leur moyenne tout en respectant strictement les plafonds d'accueil des lycées.
+
+Générer des rapports automatisés d'affectation : Produire des bilans synthétiques (élèves affectés, listes d'attente, taux de remplissage des lycées) exportables au format YAML ou texte/JSON.
+
+*Résultats attendus*:
+Une architecture logicielle modulaire : Un système découplé où la logique métier est exécutée par Python et la configuration/données gérées dynamiquement par des fichiers YAML lisibles et éditables.
+
+Un algorithme d'affectation multicritère fonctionnel : Un moteur capable de traiter simultanément la moyenne de l'élève, la distance domicile-établissement et la capacité résiduelle des lycées.
+
+Une réduction significative des incohérences d'affectation : Élimination des doublons, des sur-capacités dans les lycées centraux et des affectations à des distances excessives du domicile de l'élève.

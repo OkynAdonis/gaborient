@@ -1,0 +1,618 @@
+{
+  "resume": {
+    "total_eleves": 27,
+    "total_affectes": 27,
+    "total_liste_attente": 0,
+    "total_non_affectes": 0
+  },
+  "affectations": [
+    {
+      "id": "ELV001",
+      "nom": "Nguema",
+      "prenom": "Sarah",
+      "moyenne_generale": 15.3,
+      "adresse": "Quartier Glass, Libreville",
+      "latitude": 0.3895,
+      "longitude": 9.453,
+      "voeux": [
+        "GAB001",
+        "GAB009",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB001",
+      "statut": "affecte",
+      "distance_affectation_km": 0.17
+    },
+    {
+      "id": "ELV002",
+      "nom": "Obame",
+      "prenom": "Junior",
+      "moyenne_generale": 12.4,
+      "adresse": "Quartier Akébé, Libreville",
+      "latitude": 0.42,
+      "longitude": 9.464,
+      "voeux": [
+        "GAB003",
+        "GAB010"
+      ],
+      "etablissement_affecte": "GAB003",
+      "statut": "affecte",
+      "distance_affectation_km": 0.24
+    },
+    {
+      "id": "ELV003",
+      "nom": "Ondo",
+      "prenom": "Paul",
+      "moyenne_generale": 13.2,
+      "adresse": "Quartier Louis, Libreville",
+      "latitude": 0.383,
+      "longitude": 9.449,
+      "voeux": [
+        "GAB004",
+        "GAB007",
+        "GAB002"
+      ],
+      "etablissement_affecte": "GAB004",
+      "statut": "affecte",
+      "distance_affectation_km": 0.12
+    },
+    {
+      "id": "ELV004",
+      "nom": "Mba",
+      "prenom": "Estelle",
+      "moyenne_generale": 16.7,
+      "adresse": "Nombakélé, Libreville",
+      "latitude": 0.3938,
+      "longitude": 9.4456,
+      "voeux": [
+        "GAB002",
+        "GAB006",
+        "GAB001"
+      ],
+      "etablissement_affecte": "GAB002",
+      "statut": "affecte",
+      "distance_affectation_km": 0.25
+    },
+    {
+      "id": "ELV005",
+      "nom": "Akendengue",
+      "prenom": "David",
+      "moyenne_generale": 14.9,
+      "adresse": "Mont-Bouët, Libreville",
+      "latitude": 0.3739,
+      "longitude": 9.4352,
+      "voeux": [
+        "GAB011",
+        "GAB004",
+        "GAB009"
+      ],
+      "etablissement_affecte": "GAB011",
+      "statut": "affecte",
+      "distance_affectation_km": 0.4
+    },
+    {
+      "id": "ELV006",
+      "nom": "Moundou",
+      "prenom": "Aline",
+      "moyenne_generale": 17.2,
+      "adresse": "Nzeng-Ayong, Libreville",
+      "latitude": 0.4068,
+      "longitude": 9.4865,
+      "voeux": [
+        "GAB006",
+        "GAB012",
+        "GAB001"
+      ],
+      "etablissement_affecte": "GAB006",
+      "statut": "affecte",
+      "distance_affectation_km": 0.26
+    },
+    {
+      "id": "ELV007",
+      "nom": "Bongo",
+      "prenom": "Kevin",
+      "moyenne_generale": 11.8,
+      "adresse": "Owendo, Libreville",
+      "latitude": 0.2913,
+      "longitude": 9.5001,
+      "voeux": [
+        "GAB005",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB005",
+      "statut": "affecte",
+      "distance_affectation_km": 0.06
+    },
+    {
+      "id": "ELV008",
+      "nom": "Kouassi",
+      "prenom": "Maëlle",
+      "moyenne_generale": 15.4,
+      "adresse": "Grand Poto-Poto, Libreville",
+      "latitude": 0.3957,
+      "longitude": 9.4472,
+      "voeux": [
+        "GAB009",
+        "GAB002",
+        "GAB001"
+      ],
+      "etablissement_affecte": "GAB002",
+      "statut": "affecte",
+      "distance_affectation_km": 0.26
+    },
+    {
+      "id": "ELV009",
+      "nom": "Ntsame",
+      "prenom": "Thierry",
+      "moyenne_generale": 16.1,
+      "adresse": "Quartier de la Peyrie, Libreville",
+      "latitude": 0.4372,
+      "longitude": 9.4509,
+      "voeux": [
+        "GAB010",
+        "GAB003",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB010",
+      "statut": "affecte",
+      "distance_affectation_km": 0.27
+    },
+    {
+      "id": "ELV010",
+      "nom": "Ayang",
+      "prenom": "Rachel",
+      "moyenne_generale": 13.9,
+      "adresse": "Akanda, Libreville",
+      "latitude": 0.5176,
+      "longitude": 9.4132,
+      "voeux": [
+        "GAB008",
+        "GAB012"
+      ],
+      "etablissement_affecte": "GAB008",
+      "statut": "affecte",
+      "distance_affectation_km": 0.44
+    },
+    {
+      "id": "ELV011",
+      "nom": "Lembet",
+      "prenom": "Jules",
+      "moyenne_generale": 14.5,
+      "adresse": "Nkembo, Libreville",
+      "latitude": 0.4178,
+      "longitude": 9.4587,
+      "voeux": [
+        "GAB003",
+        "GAB010",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB003",
+      "statut": "affecte",
+      "distance_affectation_km": 0.88
+    },
+    {
+      "id": "ELV012",
+      "nom": "Nguema",
+      "prenom": "Yvan",
+      "moyenne_generale": 12.7,
+      "adresse": "Riviéra, Libreville",
+      "latitude": 0.3985,
+      "longitude": 9.4484,
+      "voeux": [
+        "GAB001",
+        "GAB009"
+      ],
+      "etablissement_affecte": "GAB001",
+      "statut": "affecte",
+      "distance_affectation_km": 1.15
+    },
+    {
+      "id": "ELV013",
+      "nom": "Tchichelle",
+      "prenom": "Inès",
+      "moyenne_generale": 17.5,
+      "adresse": "Centre-ville, Libreville",
+      "latitude": 0.3912,
+      "longitude": 9.4549,
+      "voeux": [
+        "GAB001",
+        "GAB006",
+        "GAB010"
+      ],
+      "etablissement_affecte": "GAB001",
+      "statut": "affecte",
+      "distance_affectation_km": 0.13
+    },
+    {
+      "id": "ELV014",
+      "nom": "Mahoukou",
+      "prenom": "Landry",
+      "moyenne_generale": 10.9,
+      "adresse": "Chinchou, Libreville",
+      "latitude": 0.3668,
+      "longitude": 9.4451,
+      "voeux": [
+        "GAB004",
+        "GAB011"
+      ],
+      "etablissement_affecte": "GAB011",
+      "statut": "affecte",
+      "distance_affectation_km": 1.12
+    },
+    {
+      "id": "ELV015",
+      "nom": "Olinga",
+      "prenom": "Naomi",
+      "moyenne_generale": 15.2,
+      "adresse": "Batterie, Libreville",
+      "latitude": 0.387,
+      "longitude": 9.4518,
+      "voeux": [
+        "GAB009",
+        "GAB001",
+        "GAB002"
+      ],
+      "etablissement_affecte": "GAB001",
+      "statut": "affecte",
+      "distance_affectation_km": 0.45
+    },
+    {
+      "id": "ELV016",
+      "nom": "Mengue",
+      "prenom": "Joel",
+      "moyenne_generale": 16.4,
+      "adresse": "Dandé, Libreville",
+      "latitude": 0.3891,
+      "longitude": 9.4623,
+      "voeux": [
+        "GAB003",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB006",
+      "statut": "affecte",
+      "distance_affectation_km": 3.08
+    },
+    {
+      "id": "ELV017",
+      "nom": "Nze",
+      "prenom": "Cassandre",
+      "moyenne_generale": 13.6,
+      "adresse": "Quartier Mpila, Libreville",
+      "latitude": 0.3829,
+      "longitude": 9.4704,
+      "voeux": [
+        "GAB010",
+        "GAB012",
+        "GAB007"
+      ],
+      "etablissement_affecte": "GAB007",
+      "statut": "affecte",
+      "distance_affectation_km": 2.7
+    },
+    {
+      "id": "ELV018",
+      "nom": "Mboumba",
+      "prenom": "Arthur",
+      "moyenne_generale": 14.7,
+      "adresse": "Quartier Ndende, Libreville",
+      "latitude": 0.4018,
+      "longitude": 9.4488,
+      "voeux": [
+        "GAB002",
+        "GAB001",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB002",
+      "statut": "affecte",
+      "distance_affectation_km": 0.94
+    },
+    {
+      "id": "ELV019",
+      "nom": "Okou",
+      "prenom": "Nadine",
+      "moyenne_generale": 12.1,
+      "adresse": "Quartier Glass, Libreville",
+      "latitude": 0.3909,
+      "longitude": 9.4541,
+      "voeux": [
+        "GAB009",
+        "GAB001"
+      ],
+      "etablissement_affecte": "GAB001",
+      "statut": "affecte",
+      "distance_affectation_km": 0.1
+    },
+    {
+      "id": "ELV020",
+      "nom": "Mavinga",
+      "prenom": "Rodrigue",
+      "moyenne_generale": 17.1,
+      "adresse": "Nzeng-Ayong, Libreville",
+      "latitude": 0.4094,
+      "longitude": 9.4821,
+      "voeux": [
+        "GAB012",
+        "GAB006",
+        "GAB003"
+      ],
+      "etablissement_affecte": "GAB012",
+      "statut": "affecte",
+      "distance_affectation_km": 0.33
+    },
+    {
+      "id": "ELV021",
+      "nom": "Ikobe",
+      "prenom": "Mélanie",
+      "moyenne_generale": 11.5,
+      "adresse": "Owendo, Libreville",
+      "latitude": 0.2954,
+      "longitude": 9.4979,
+      "voeux": [
+        "GAB005",
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB005",
+      "statut": "affecte",
+      "distance_affectation_km": 0.56
+    },
+    {
+      "id": "ELV022",
+      "nom": "Bilongo",
+      "prenom": "Samuel",
+      "moyenne_generale": 15.7,
+      "adresse": "Akébé, Libreville",
+      "latitude": 0.4208,
+      "longitude": 9.4662,
+      "voeux": [
+        "GAB003",
+        "GAB010",
+        "GAB011"
+      ],
+      "etablissement_affecte": "GAB003",
+      "statut": "affecte",
+      "distance_affectation_km": 0.06
+    },
+    {
+      "id": "ELV023",
+      "nom": "Essono",
+      "prenom": "Fanny",
+      "moyenne_generale": 13.3,
+      "adresse": "Louis, Libreville",
+      "latitude": 0.3844,
+      "longitude": 9.4508,
+      "voeux": [
+        "GAB004",
+        "GAB007",
+        "GAB011"
+      ],
+      "etablissement_affecte": "GAB004",
+      "statut": "affecte",
+      "distance_affectation_km": 0.15
+    },
+    {
+      "id": "ELV024",
+      "nom": "Ndong",
+      "prenom": "Emile",
+      "moyenne_generale": 16.9,
+      "adresse": "Nombakélé, Libreville",
+      "latitude": 0.3949,
+      "longitude": 9.4483,
+      "voeux": [
+        "GAB002",
+        "GAB006",
+        "GAB001"
+      ],
+      "etablissement_affecte": "GAB002",
+      "statut": "affecte",
+      "distance_affectation_km": 0.18
+    },
+    {
+      "id": "ELV025",
+      "nom": "PERSO",
+      "prenom": "TEST",
+      "moyenne_generale": 13.3,
+      "adresse": "Nzeng Ayong, 3ème Arrondissement, Libreville, Estuaire, Gabon",
+      "latitude": 0.4271,
+      "longitude": 9.4822,
+      "voeux": [
+        "GAB004"
+      ],
+      "etablissement_affecte": "GAB004",
+      "statut": "affecte",
+      "distance_affectation_km": 6.04
+    },
+    {
+      "id": "ELV026",
+      "nom": "PERSO 2",
+      "prenom": "TEST",
+      "moyenne_generale": 18.7,
+      "adresse": "Akébé Frontière_ Baraka, 3ème Arrondissement, Libreville, Estuaire, Gabon",
+      "latitude": 0.3861,
+      "longitude": 9.463,
+      "voeux": [
+        "GAB006"
+      ],
+      "etablissement_affecte": "GAB006",
+      "statut": "affecte",
+      "distance_affectation_km": 3.23
+    },
+    {
+      "id": "ELV027",
+      "nom": "PERSO 3",
+      "prenom": "TEST",
+      "moyenne_generale": 14.2,
+      "adresse": "Akanda, Libreville, Estuaire, Gabon",
+      "latitude": 0.5164,
+      "longitude": 9.3882,
+      "voeux": [
+        "GAB002",
+        "GAB003",
+        "GAB007"
+      ],
+      "etablissement_affecte": "GAB003",
+      "statut": "affecte",
+      "distance_affectation_km": 13.66
+    }
+  ],
+  "liste_attente": [],
+  "non_affectes": [],
+  "etablissements": [
+    {
+      "id": "GAB001",
+      "nom": "Lycée National Léon Mba",
+      "type": "public",
+      "commune": "Libreville",
+      "quartier": "Glass",
+      "latitude": 0.3901,
+      "longitude": 9.4544,
+      "capacite_6eme": 180,
+      "places_occupees": 5,
+      "places_restantes": 175,
+      "taux_remplissage": 2.8
+    },
+    {
+      "id": "GAB002",
+      "nom": "Collège Notre-Dame des Trois Épis",
+      "type": "conventionné",
+      "commune": "Libreville",
+      "quartier": "Nombakélé",
+      "latitude": 0.3934,
+      "longitude": 9.4478,
+      "capacite_6eme": 120,
+      "places_occupees": 4,
+      "places_restantes": 116,
+      "taux_remplissage": 3.3
+    },
+    {
+      "id": "GAB003",
+      "nom": "Lycée Djoué Dabany",
+      "type": "public",
+      "commune": "Libreville",
+      "quartier": "Akébé",
+      "latitude": 0.4212,
+      "longitude": 9.4658,
+      "capacite_6eme": 170,
+      "places_occupees": 4,
+      "places_restantes": 166,
+      "taux_remplissage": 2.4
+    },
+    {
+      "id": "GAB004",
+      "nom": "Collège Sainte-Marie",
+      "type": "conventionné",
+      "commune": "Libreville",
+      "quartier": "Louis",
+      "latitude": 0.3833,
+      "longitude": 9.45,
+      "capacite_6eme": 110,
+      "places_occupees": 3,
+      "places_restantes": 107,
+      "taux_remplissage": 2.7
+    },
+    {
+      "id": "GAB005",
+      "nom": "Lycée d'Owendo",
+      "type": "public",
+      "commune": "Owendo",
+      "quartier": "Centre-ville",
+      "latitude": 0.2911,
+      "longitude": 9.5006,
+      "capacite_6eme": 140,
+      "places_occupees": 2,
+      "places_restantes": 138,
+      "taux_remplissage": 1.4
+    },
+    {
+      "id": "GAB006",
+      "nom": "Lycée Technique National Omar Bongo",
+      "type": "public",
+      "commune": "Libreville",
+      "quartier": "Nzeng-Ayong",
+      "latitude": 0.405,
+      "longitude": 9.485,
+      "capacite_6eme": 200,
+      "places_occupees": 3,
+      "places_restantes": 197,
+      "taux_remplissage": 1.5
+    },
+    {
+      "id": "GAB007",
+      "nom": "Collège Bessieux",
+      "type": "conventionné",
+      "commune": "Libreville",
+      "quartier": "Louis",
+      "latitude": 0.3805,
+      "longitude": 9.4462,
+      "capacite_6eme": 100,
+      "places_occupees": 1,
+      "places_restantes": 99,
+      "taux_remplissage": 1.0
+    },
+    {
+      "id": "GAB008",
+      "nom": "Lycée d'Akanda",
+      "type": "public",
+      "commune": "Akanda",
+      "quartier": "Centre",
+      "latitude": 0.52,
+      "longitude": 9.41,
+      "capacite_6eme": 150,
+      "places_occupees": 1,
+      "places_restantes": 149,
+      "taux_remplissage": 0.7
+    },
+    {
+      "id": "GAB009",
+      "nom": "Collège Immaculée Conception",
+      "type": "conventionné",
+      "commune": "Libreville",
+      "quartier": "Glass",
+      "latitude": 0.3925,
+      "longitude": 9.457,
+      "capacite_6eme": 90,
+      "places_occupees": 0,
+      "places_restantes": 90,
+      "taux_remplissage": 0.0
+    },
+    {
+      "id": "GAB010",
+      "nom": "Lycée de la Peyrie",
+      "type": "public",
+      "commune": "Libreville",
+      "quartier": "Peyrie",
+      "latitude": 0.435,
+      "longitude": 9.452,
+      "capacite_6eme": 160,
+      "places_occupees": 1,
+      "places_restantes": 159,
+      "taux_remplissage": 0.6
+    },
+    {
+      "id": "GAB011",
+      "nom": "Collège Saint-Jean",
+      "type": "conventionné",
+      "commune": "Libreville",
+      "quartier": "Mont-Bouët",
+      "latitude": 0.3746,
+      "longitude": 9.4387,
+      "capacite_6eme": 130,
+      "places_occupees": 2,
+      "places_restantes": 128,
+      "taux_remplissage": 1.5
+    },
+    {
+      "id": "GAB012",
+      "nom": "Lycée de l'Amitié",
+      "type": "public",
+      "commune": "Libreville",
+      "quartier": "Nzeng-Ayong",
+      "latitude": 0.4121,
+      "longitude": 9.4809,
+      "capacite_6eme": 115,
+      "places_occupees": 1,
+      "places_restantes": 114,
+      "taux_remplissage": 0.9
+    }
+  ],
+  "annee": "2025-2026"
+}

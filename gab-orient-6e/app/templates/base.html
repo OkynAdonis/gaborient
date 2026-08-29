@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ORIENT 6ÈME{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand-group">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="masthead-text">
+          <span class="republique">Service national d'orientation</span>
+            <div class="ministere">ORIENT 6ÈME</div>
+        </div>
+      </div>
+      <div class="masthead-right">
+        <span class="annee-badge">{{ annee_courante or 'Année non définie' }}</span>
+        <!-- Settings: dark mode toggle will be here -->
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <button id="settings-toggle" class="btn btn-ghost" type="button" aria-expanded="false" aria-controls="settings-menu">⚙️</button>
+          <div id="settings-menu" style="display:none; position:absolute; right:1.5rem; top:60px; background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:0 10px 30px rgba(2,6,23,0.08); padding:0.75rem; z-index:120;">
+            <label style="display:flex; align-items:center; gap:0.6rem;"> 
+              <input type="checkbox" id="theme-toggle"> Mode sombre
+            </label>
+          </div>
+        </div>
+        <form method="POST" action="{{ url_for('deconnexion') }}">
+          <button type="submit" class="btn btn-ghost">Déconnexion</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar" aria-label="Navigation principale">
+    <div class="nav-shell">
+      <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="nav-links">☰</button>
+
+      <div class="nav-item dropdown" id="nav-links">
+        <button type="button" class="nav-trigger" aria-expanded="false">Navigation</button>
+        <div class="nav-submenu">
+          <a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Accueil</a>
+          <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' }}">Tableau de bord</a>
+          <a href="{{ url_for('liste_eleves') }}" class="{{ 'active' if request.endpoint == 'liste_eleves' }}">Candidats</a>
+          <a href="{{ url_for('liste_etablissements') }}" class="{{ 'active' if request.endpoint in ['liste_etablissements', 'nouvel_etablissement'] }}">Établissements</a>
+          <a href="{{ url_for('carte') }}" class="{{ 'active' if request.endpoint == 'carte' }}">Carte des établissements</a>
+          <a href="{{ url_for('affectation') }}" class="{{ 'active' if request.endpoint == 'affectation' }}">Placement</a>
+          <a href="{{ url_for('annee_scolaire') }}" class="{{ 'active' if request.endpoint == 'annee_scolaire' }}">Périodes</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  {% block scripts %}
+  <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/remove_flags.js') }}"></script>
+  {% endblock %}
+
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    ORIENT 6ÈME — solution d'orientation scolaire géolocalisée
+  </footer>
+</body>
+</html>

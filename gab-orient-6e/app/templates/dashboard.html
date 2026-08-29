@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Tableau de bord — ORIENT 6ÈME{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="eyebrow">Tableau de bord</span>
+    <h1>Synthèse de la session</h1>
+    <p>Récapitulatif et actions essentielles pour conduire le placement des élèves.</p>
+  </div>
+  <div>
+    <a href="{{ url_for('affectation') }}" class="btn btn-primary">Démarrer le placement</a>
+    <a href="{{ url_for('importer_eleves') }}" class="btn btn-ghost">Charger postulants (CSV)</a>
+  </div>
+</div>
+
+  <div class="releve">
+  <div class="releve-item card card--gabon">
+    <span class="chiffre">{{ nb_eleves }}</span>
+    <span class="intitule">Candidats</span>
+  </div>
+  <div class="releve-item card card--gabon-blue">
+    <span class="chiffre">{{ nb_etablissements }}</span>
+    <span class="intitule">Structures</span>
+  </div>
+  <div class="releve-item card card--gabon-yellow">
+    <span class="chiffre">{{ capacite_totale }}</span>
+    <span class="intitule">Capacité totale 6ème</span>
+  </div>
+</div>
+
+<h2 class="section-title">Actions rapides</h2>
+<div class="card">
+  <p style="color:var(--texte-att);">Actions rapides: importer des dossiers, lancer une opération de placement, ou visualiser la carte des établissements. Les exports sont accessibles une fois le calcul terminé.</p>
+  <div style="margin-top:1rem; display:flex; gap:0.6rem; flex-wrap:wrap;">
+    <a href="{{ url_for('modele_csv') }}" class="btn btn-ghost">Télécharger le modèle CSV</a>
+    <a href="{{ url_for('carte') }}" class="btn btn-ghost">Voir la carte</a>
+    <a href="{{ url_for('annee_scolaire') }}" class="btn btn-ghost">Gérer les périodes</a>
+  </div>
+</div>
+
+<h2 class="section-title">État de la campagne</h2>
+<div class="card">
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-weight:700;font-size:1.2rem;color:var(--texte);">Affectés: <span style="color:var(--accent)">{{ nb_affectes }}</span></div>
+      <div style="font-weight:700;font-size:1.2rem;color:var(--texte);">En attente: <span style="color:#B56500">{{ nb_liste_attente }}</span></div>
+      <div style="font-weight:700;font-size:1.2rem;color:var(--texte);">Non affectés: <span style="color:#7A1F1F">{{ nb_non_affectes }}</span></div>
+    </div>
+    <div style="min-width:260px;">
+      <div style="font-size:0.9rem;color:var(--texte-att);margin-bottom:0.4rem;">Taux de remplissage global</div>
+      <div class="progress-track"><div class="progress-fill" style="width:{{ taux_remplissage_global }}%; background: linear-gradient(90deg, var(--gabon-green), var(--gabon-yellow));"></div></div>
+      <div style="font-size:0.85rem;color:var(--texte-att);margin-top:0.4rem;">{{ taux_remplissage_global }}% des places occupées</div>
+    </div>
+    <div style="text-align:right;">
+      {% if has_json %}
+        <a href="{{ url_for('download_output', filename='rapport_affectation.json') }}" class="btn btn-ghost">Télécharger JSON</a>
+      {% endif %}
+      {% if has_yaml %}
+        <a href="{{ url_for('download_output', filename='rapport_affectation.yaml') }}" class="btn btn-ghost">Télécharger YAML</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<h2 class="section-title">Établissements (top remplissage)</h2>
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>Id</th><th>Nom</th><th>Commune</th><th>Places restantes</th><th>Taux %</th></tr>
+    </thead>
+    <tbody>
+      {% for etab in top_etablissements %}
+        <tr>
+          <td>{{ etab.id }}</td>
+          <td>{{ etab.nom }}</td>
+          <td>{{ etab.commune }}</td>
+          <td>{{ etab.places_restantes }}</td>
+          <td>{{ etab.taux_remplissage }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

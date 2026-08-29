@@ -1,0 +1,110 @@
+etablissements:
+- id: GAB001
+  nom: Lycée National Léon Mba
+  type: public
+  commune: Libreville
+  quartier: Glass
+  latitude: 0.3901
+  longitude: 9.4544
+  capacite_6eme: 180
+  places_occupees: 0
+- id: GAB002
+  nom: Collège Notre-Dame des Trois Épis
+  type: conventionné
+  commune: Libreville
+  quartier: Nombakélé
+  latitude: 0.3934
+  longitude: 9.4478
+  capacite_6eme: 120
+  places_occupees: 0
+- id: GAB003
+  nom: Lycée Djoué Dabany
+  type: public
+  commune: Libreville
+  quartier: Akébé
+  latitude: 0.4212
+  longitude: 9.4658
+  capacite_6eme: 170
+  places_occupees: 0
+- id: GAB004
+  nom: Collège Sainte-Marie
+  type: conventionné
+  commune: Libreville
+  quartier: Louis
+  latitude: 0.3833
+  longitude: 9.45
+  capacite_6eme: 110
+  places_occupees: 0
+- id: GAB005
+  nom: Lycée d'Owendo
+  type: public
+  commune: Owendo
+  quartier: Centre-ville
+  latitude: 0.2911
+  longitude: 9.5006
+  capacite_6eme: 140
+  places_occupees: 0
+- id: GAB006
+  nom: Lycée Technique National Omar Bongo
+  type: public
+  commune: Libreville
+  quartier: Nzeng-Ayong
+  latitude: 0.405
+  longitude: 9.485
+  capacite_6eme: 200
+  places_occupees: 0
+- id: GAB007
+  nom: Collège Bessieux
+  type: conventionné
+  commune: Libreville
+  quartier: Louis
+  latitude: 0.3805
+  longitude: 9.4462
+  capacite_6eme: 100
+  places_occupees: 0
+- id: GAB008
+  nom: Lycée d'Akanda
+  type: public
+  commune: Akanda
+  quartier: Centre
+  latitude: 0.52
+  longitude: 9.41
+  capacite_6eme: 150
+  places_occupees: 0
+- id: GAB009
+  nom: Collège Immaculée Conception
+  type: conventionné
+  commune: Libreville
+  quartier: Glass
+  latitude: 0.3925
+  longitude: 9.457
+  capacite_6eme: 90
+  places_occupees: 0
+- id: GAB010
+  nom: Lycée de la Peyrie
+  type: public
+  commune: Libreville
+  quartier: Peyrie
+  latitude: 0.435
+  longitude: 9.452
+  capacite_6eme: 160
+  places_occupees: 0
+- id: GAB011
+  nom: Collège Saint-Jean
+  type: conventionné
+  commune: Libreville
+  quartier: Mont-Bouët
+  latitude: 0.3746
+  longitude: 9.4387
+  capacite_6eme: 130
+  places_occupees: 0
+- id: GAB012
+  nom: Lycée de l'Amitié
+  type: public
+  commune: Libreville
+  quartier: Nzeng-Ayong
+  latitude: 0.4121
+  longitude: 9.4809
+  capacite_6eme: 115
+  places_occupees: 0
+

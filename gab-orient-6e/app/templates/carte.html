@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Carte — ORIENT 6ÈME{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Carte des établissements</h1>
+<p style="color:var(--encre-douce); margin-bottom:1.5rem;">
+  Visualisation géographique des structures et des dossiers candidats.
+</p>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const etablissements = {{ etablissements|tojson }};
+  const eleves = {{ eleves|tojson }};
+
+  const map = L.map('map').setView([0.39, 9.46], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const rootStyle = getComputedStyle(document.documentElement);
+  const gabonGreen = rootStyle.getPropertyValue('--gabon-green').trim() || '#009543';
+  const gabonYellow = rootStyle.getPropertyValue('--gabon-yellow').trim() || '#FCD116';
+  const gabonBlue = rootStyle.getPropertyValue('--gabon-blue').trim() || '#3A75C4';
+
+  const iconEtab = L.divIcon({
+    className: '',
+    html: `<div style="background:${gabonGreen};width:16px;height:16px;border-radius:4px;border:2px solid ${gabonYellow};"></div>`,
+    iconSize: [16, 16]
+  });
+
+  const iconEleve = L.divIcon({
+    className: '',
+    html: `<div style="background:${gabonBlue};width:10px;height:10px;border-radius:50%;border:2px solid #fff;"></div>`,
+    iconSize: [10, 10]
+  });
+
+  etablissements.forEach(e => {
+    L.marker([e.latitude, e.longitude], {icon: iconEtab}).addTo(map)
+      .bindPopup(`<strong>${e.nom}</strong><br>${e.type} — ${e.quartier}<br>${e.places_restantes}/${e.capacite_6eme} places restantes`);
+  });
+
+  eleves.forEach(e => {
+    L.marker([e.latitude, e.longitude], {icon: iconEleve}).addTo(map)
+      .bindPopup(`<strong>${e.prenom} ${e.nom}</strong><br>Moyenne : ${e.moyenne_generale}/20`);
+  });
+</script>
+{% endblock %}
+

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Établissements — ORIENT 6ÈME{% endblock %}
+
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:0.4rem;">
+  <div>
+    <h1 class="display" style="font-size:2rem;">Inventaire des établissements</h1>
+    <p style="color:var(--encre-douce);">{{ etablissements|length }} structure(s) enregistrée(s).</p>
+  </div>
+  <a href="{{ url_for('nouvel_etablissement') }}" class="btn btn-primary">+ Enregistrer un établissement</a>
+</div>
+
+<div style="display:flex; gap:0.75rem; align-items:center; margin-top:0.6rem;">
+  <input id="search-etabs" placeholder="Rechercher un établissement, type ou commune" aria-label="Rechercher établissements"
+    style="flex:1; padding:0.6rem 0.9rem; border:1px solid var(--line); border-radius:10px; font-size:0.95rem;">
+  <button id="reset-search-etabs" class="btn btn-ghost" type="button" style="white-space:nowrap;">Effacer</button>
+</div>
+
+<div class="table-wrap" style="margin-top:1.0rem;">
+  <table>
+    <thead>
+      <tr>
+        <th>Établissement</th>
+        <th>Type</th>
+        <th>Commune / Quartier</th>
+        <th>Capacité 6ème</th>
+        <th>Places restantes</th>
+        <th>Remplissage</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in etablissements %}
+      <tr>
+        <td><strong>{{ e.nom }}</strong></td>
+        <td style="text-transform:capitalize;">{{ e.type }}</td>
+        <td>{{ e.commune }} — {{ e.quartier }}</td>
+        <td>{{ e.capacite_6eme }}</td>
+        <td>{{ e.places_restantes }}</td>
+        <td style="min-width:140px;">
+          <div class="progress-track">
+            <div class="progress-fill" style="width: {{ e.taux_remplissage }}%;"></div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const search = document.getElementById('search-etabs');
+    const reset = document.getElementById('reset-search-etabs');
+    const rows = Array.from(document.querySelectorAll('.table-wrap tbody tr'));
+
+    function filterRows() {
+      const q = (search.value || '').trim().toLowerCase();
+      if (!q) {
+        rows.forEach(r => r.style.display = '');
+        return;
+      }
+      rows.forEach(r => {
+        const text = r.innerText.toLowerCase();
+        r.style.display = text.indexOf(q) !== -1 ? '' : 'none';
+      });
+    }
+
+    search.addEventListener('input', filterRows);
+    reset.addEventListener('click', function () { search.value = ''; filterRows(); search.focus(); });
+  });
+  </script>
+{% endblock %}

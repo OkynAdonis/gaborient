@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Placement — ORIENT 6ÈME{% endblock %}
+
+{% block content %}
+<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Démarrer la procédure de placement</h1>
+
+{% if campagne_deja_lancee %}
+  <p style="color:var(--vert-clair); max-width:60ch; margin-bottom:1.5rem; font-weight:600;">
+  Une opération de placement a déjà été réalisée. Les listes et la carte
+  affichent les allocations courantes. Vous pouvez relancer le calcul ou
+  rétablir l'état initial.
+  </p>
+{% else %}
+  <p style="color:var(--encre-douce); max-width:60ch; margin-bottom:2rem;">
+  Le système analysera les {{ nb_eleves }} dossiers en combinant les critères
+  académiques et géographiques, et produira un rapport exploitable en sortie.
+  </p>
+{% endif %}
+
+<div class="card" style="display:flex; gap:1rem; flex-wrap:wrap;">
+  <form method="POST">
+    <button type="submit" class="btn btn-primary">
+      {{ 'Relancer' if campagne_deja_lancee else "Exécuter le placement" }}
+    </button>
+  </form>
+  {% if campagne_deja_lancee %}
+  <form method="POST" action="{{ url_for('reinitialiser_campagne') }}">
+    <button type="submit" class="btn btn-ghost" style="color:var(--encre-douce); border-color:var(--encre-douce);">
+      Rétablir l'état initial
+    </button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

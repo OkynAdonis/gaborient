@@ -1,0 +1,286 @@
+eleves:
+- id: ELV001
+  nom: Nguema
+  prenom: Sarah
+  moyenne_generale: 15.3
+  adresse: Quartier Glass, Libreville
+  latitude: 0.3895
+  longitude: 9.453
+  voeux:
+  - GAB001
+  - GAB009
+  - GAB006
+- id: ELV002
+  nom: Obame
+  prenom: Junior
+  moyenne_generale: 12.4
+  adresse: Quartier Akébé, Libreville
+  latitude: 0.42
+  longitude: 9.464
+  voeux:
+  - GAB003
+  - GAB010
+- id: ELV003
+  nom: Ondo
+  prenom: Paul
+  moyenne_generale: 13.2
+  adresse: Quartier Louis, Libreville
+  latitude: 0.383
+  longitude: 9.449
+  voeux:
+  - GAB004
+  - GAB007
+  - GAB002
+- id: ELV004
+  nom: Mba
+  prenom: Estelle
+  moyenne_generale: 16.7
+  adresse: Nombakélé, Libreville
+  latitude: 0.3938
+  longitude: 9.4456
+  voeux:
+  - GAB002
+  - GAB006
+  - GAB001
+- id: ELV005
+  nom: Akendengue
+  prenom: David
+  moyenne_generale: 14.9
+  adresse: Mont-Bouët, Libreville
+  latitude: 0.3739
+  longitude: 9.4352
+  voeux:
+  - GAB011
+  - GAB004
+  - GAB009
+- id: ELV006
+  nom: Moundou
+  prenom: Aline
+  moyenne_generale: 17.2
+  adresse: Nzeng-Ayong, Libreville
+  latitude: 0.4068
+  longitude: 9.4865
+  voeux:
+  - GAB006
+  - GAB012
+  - GAB001
+- id: ELV007
+  nom: Bongo
+  prenom: Kevin
+  moyenne_generale: 11.8
+  adresse: Owendo, Libreville
+  latitude: 0.2913
+  longitude: 9.5001
+  voeux:
+  - GAB005
+  - GAB006
+- id: ELV008
+  nom: Kouassi
+  prenom: Maëlle
+  moyenne_generale: 15.4
+  adresse: Grand Poto-Poto, Libreville
+  latitude: 0.3957
+  longitude: 9.4472
+  voeux:
+  - GAB009
+  - GAB002
+  - GAB001
+- id: ELV009
+  nom: Ntsame
+  prenom: Thierry
+  moyenne_generale: 16.1
+  adresse: Quartier de la Peyrie, Libreville
+  latitude: 0.4372
+  longitude: 9.4509
+  voeux:
+  - GAB010
+  - GAB003
+  - GAB006
+- id: ELV010
+  nom: Ayang
+  prenom: Rachel
+  moyenne_generale: 13.9
+  adresse: Akanda, Libreville
+  latitude: 0.5176
+  longitude: 9.4132
+  voeux:
+  - GAB008
+  - GAB012
+- id: ELV011
+  nom: Lembet
+  prenom: Jules
+  moyenne_generale: 14.5
+  adresse: Nkembo, Libreville
+  latitude: 0.4178
+  longitude: 9.4587
+  voeux:
+  - GAB003
+  - GAB010
+  - GAB006
+- id: ELV012
+  nom: Nguema
+  prenom: Yvan
+  moyenne_generale: 12.7
+  adresse: Riviéra, Libreville
+  latitude: 0.3985
+  longitude: 9.4484
+  voeux:
+  - GAB001
+  - GAB009
+- id: ELV013
+  nom: Tchichelle
+  prenom: Inès
+  moyenne_generale: 17.5
+  adresse: Centre-ville, Libreville
+  latitude: 0.3912
+  longitude: 9.4549
+  voeux:
+  - GAB001
+  - GAB006
+  - GAB010
+- id: ELV014
+  nom: Mahoukou
+  prenom: Landry
+  moyenne_generale: 10.9
+  adresse: Chinchou, Libreville
+  latitude: 0.3668
+  longitude: 9.4451
+  voeux:
+  - GAB004
+  - GAB011
+- id: ELV015
+  nom: Olinga
+  prenom: Naomi
+  moyenne_generale: 15.2
+  adresse: Batterie, Libreville
+  latitude: 0.387
+  longitude: 9.4518
+  voeux:
+  - GAB009
+  - GAB001
+  - GAB002
+- id: ELV016
+  nom: Mengue
+  prenom: Joel
+  moyenne_generale: 16.4
+  adresse: Dandé, Libreville
+  latitude: 0.3891
+  longitude: 9.4623
+  voeux:
+  - GAB003
+  - GAB006
+- id: ELV017
+  nom: Nze
+  prenom: Cassandre
+  moyenne_generale: 13.6
+  adresse: Quartier Mpila, Libreville
+  latitude: 0.3829
+  longitude: 9.4704
+  voeux:
+  - GAB010
+  - GAB012
+  - GAB007
+- id: ELV018
+  nom: Mboumba
+  prenom: Arthur
+  moyenne_generale: 14.7
+  adresse: Quartier Ndende, Libreville
+  latitude: 0.4018
+  longitude: 9.4488
+  voeux:
+  - GAB002
+  - GAB001
+  - GAB006
+- id: ELV019
+  nom: Okou
+  prenom: Nadine
+  moyenne_generale: 12.1
+  adresse: Quartier Glass, Libreville
+  latitude: 0.3909
+  longitude: 9.4541
+  voeux:
+  - GAB009
+  - GAB001
+- id: ELV020
+  nom: Mavinga
+  prenom: Rodrigue
+  moyenne_generale: 17.1
+  adresse: Nzeng-Ayong, Libreville
+  latitude: 0.4094
+  longitude: 9.4821
+  voeux:
+  - GAB012
+  - GAB006
+  - GAB003
+- id: ELV021
+  nom: Ikobe
+  prenom: Mélanie
+  moyenne_generale: 11.5
+  adresse: Owendo, Libreville
+  latitude: 0.2954
+  longitude: 9.4979
+  voeux:
+  - GAB005
+  - GAB006
+- id: ELV022
+  nom: Bilongo
+  prenom: Samuel
+  moyenne_generale: 15.7
+  adresse: Akébé, Libreville
+  latitude: 0.4208
+  longitude: 9.4662
+  voeux:
+  - GAB003
+  - GAB010
+  - GAB011
+- id: ELV023
+  nom: Essono
+  prenom: Fanny
+  moyenne_generale: 13.3
+  adresse: Louis, Libreville
+  latitude: 0.3844
+  longitude: 9.4508
+  voeux:
+  - GAB004
+  - GAB007
+  - GAB011
+- id: ELV024
+  nom: Ndong
+  prenom: Emile
+  moyenne_generale: 16.9
+  adresse: Nombakélé, Libreville
+  latitude: 0.3949
+  longitude: 9.4483
+  voeux:
+  - GAB002
+  - GAB006
+  - GAB001
+- id: ELV025
+  nom: PERSO
+  prenom: TEST
+  moyenne_generale: 13.3
+  adresse: Nzeng Ayong, 3ème Arrondissement, Libreville, Estuaire, Gabon
+  latitude: 0.4271
+  longitude: 9.4822
+  voeux:
+  - GAB004
+- id: ELV026
+  nom: PERSO 2
+  prenom: TEST
+  moyenne_generale: 18.7
+  adresse: Akébé Frontière_ Baraka, 3ème Arrondissement, Libreville, Estuaire, Gabon
+  latitude: 0.3861
+  longitude: 9.463
+  voeux:
+  - GAB006
+- id: ELV027
+  nom: PERSO 3
+  prenom: TEST
+  moyenne_generale: 14.2
+  adresse: Akanda, Libreville, Estuaire, Gabon
+  latitude: 0.5164
+  longitude: 9.3882
+  voeux:
+  - GAB002
+  - GAB003
+  - GAB007
