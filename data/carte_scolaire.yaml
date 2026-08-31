@@ -107,3 +107,58 @@ etablissements:
   longitude: 9.458
   capacite_6eme: 190
   places_occupees: 0
+- id: GAB013
+  nom: Lycée d'Okala
+  type: public
+  commune: Akanda
+  quartier: Okala
+  latitude: 0.4520
+  longitude: 9.4280
+  capacite_6eme: 140
+  places_occupees: 0
+- id: GAB014
+  nom: Lycée de Mikolongo
+  type: public
+  commune: Owendo
+  quartier: Mikolongo
+  latitude: 0.3150
+  longitude: 9.4820
+  capacite_6eme: 120
+  places_occupees: 0
+- id: GAB015
+  nom: Lycée de Nzeng-Ayong
+  type: public
+  commune: Libreville
+  quartier: Nzeng-Ayong
+  latitude: 0.4120
+  longitude: 9.4780
+  capacite_6eme: 210
+  places_occupees: 0
+- id: GAB016
+  nom: Lycée Maimouna
+  type: privé
+  commune: Libreville
+  quartier: Akébé
+  latitude: 0.4180
+  longitude: 9.4620
+  capacite_6eme: 85
+  places_occupees: 0
+- id: GAB017
+  nom: Collège Évangélique de Baraka
+  type: conventionné
+  commune: Libreville
+  quartier: Baraka
+  latitude: 0.3840
+  longitude: 9.4520
+  capacite_6eme: 95
+  places_occupees: 0
+- id: GAB018
+  nom: Lycée de Bikélé
+  type: public
+  commune: Ntoum
+  quartier: Bikélé
+  latitude: 0.3520
+  longitude: 9.5540
+  capacite_6eme: 110
+  places_occupees: 0
+
