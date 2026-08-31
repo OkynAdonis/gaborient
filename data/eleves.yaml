@@ -47,8 +47,8 @@ eleves:
   prenom: David
   moyenne_generale: 14.9
   adresse: Mont-Bouët, Libreville
-  latitude: 0.3739
-  longitude: 9.4352
+  latitude: 0.3958
+  longitude: 9.4420
   voeux:
   - GAB011
   - GAB004
@@ -143,8 +143,8 @@ eleves:
   prenom: Landry
   moyenne_generale: 10.9
   adresse: Chinchou, Libreville
-  latitude: 0.3668
-  longitude: 9.4451
+  latitude: 0.3855
+  longitude: 9.4485
   voeux:
   - GAB004
   - GAB011

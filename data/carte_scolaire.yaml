@@ -58,8 +58,8 @@ etablissements:
   type: conventionné
   commune: Libreville
   quartier: Louis
-  latitude: 0.3805
-  longitude: 9.4462
+  latitude: 0.3895
+  longitude: 9.4515
   capacite_6eme: 100
   places_occupees: 0
 - id: GAB008
@@ -94,8 +94,8 @@ etablissements:
   type: conventionné
   commune: Libreville
   quartier: Mont-Bouët
-  latitude: 0.3746
-  longitude: 9.4387
+  latitude: 0.3965
+  longitude: 9.4435
   capacite_6eme: 130
   places_occupees: 0
 - id: GAB012

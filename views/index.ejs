@@ -1,29 +1,20 @@
 <%- include('partials/header', { title: 'Accueil — ORIENT 6ÈME', annee_courante, currentPath: '/' }) %>
 
-<section class="hero">
-  <div class="geo-signature" aria-hidden="true">
-    <svg viewBox="0 0 320 260">
-      <path class="leaf-shape" d="M230,40 C270,60 280,110 250,150 C220,190 170,190 150,150 C130,110 150,60 190,45 C205,39 218,36 230,40 Z"/>
-      <path class="leaf-vein" d="M190,45 C210,90 220,130 250,150" pathLength="200"/>
-      <path class="leaf-vein delay1" d="M205,70 C215,90 210,110 225,125" pathLength="200"/>
-      <path class="leaf-shape delay2" d="M120,120 C155,130 170,170 150,205 C130,240 85,245 65,215 C45,185 55,145 90,128 C100,123 110,118 120,120 Z"/>
-      <path class="leaf-vein delay2" d="M90,128 C105,160 115,190 150,205" pathLength="200"/>
-      <path class="leaf-vein delay3" d="M100,150 C110,165 108,180 122,192" pathLength="200"/>
-      <circle class="geo-dot" style="animation-delay:1.2s" cx="250" cy="150" r="4"/>
-      <circle class="geo-dot" style="animation-delay:1.6s" cx="150" cy="205" r="4"/>
-    </svg>
+<div class="card" style="padding:0; overflow:hidden; margin-bottom:2rem; border-color:var(--line); box-shadow:var(--shadow-strong);">
+  <div style="position:relative; width:100%; height:340px; background:#0f172a;">
+    <img src="https://gabonactu.com/wp-content/uploads/2026/01/Cmalia-Gabonactu.3.jpg" alt="Placement scolaire fondé sur le mérite et la proximité - Ministère de l'Éducation Nationale" style="width:100%; height:100%; object-fit:cover; opacity:0.88;">
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:2rem;">
+      <span style="display:inline-block; background:var(--gabon-green); color:#fff; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0.25rem 0.75rem; border-radius:20px; width:fit-content; margin-bottom:0.6rem;">République Gabonaise • Enseignement Secondaire</span>
+      <h1 style="color:#fff; font-size:1.85rem; font-weight:800; margin:0 0 0.5rem 0; font-family:'Fraunces', serif; line-height:1.2;">Placement scolaire fondé sur le mérite et la proximité</h1>
+      <p style="color:#e2e8f0; font-size:1rem; margin:0 0 1.2rem 0; max-width:65ch;">Cette plateforme calcule automatiquement des propositions d'affectation en combinant le classement académique et la distance domicile–établissement, tout en respectant les capacités disponibles.</p>
+      <div>
+        <a href="/affectation" class="btn btn-primary" style="display:inline-block; text-decoration:none;">
+          Démarrer la simulation
+        </a>
+      </div>
+    </div>
   </div>
-  <span class="hero-eyebrow">Campagne d'affectation · CM2 → 6ème</span>
-  <h1>Placement scolaire fondé sur le mérite et la proximité</h1>
-  <p>
-    Cette plateforme calcule automatiquement des propositions d'affectation
-    en combinant le classement académique et la distance domicile–établissement,
-    tout en respectant les capacités disponibles.
-  </p>
-  <a href="/affectation" class="btn btn-primary btn-primary-alt">
-    Démarrer la simulation
-  </a>
-</section>
+</div>
 
 <div class="releve">
   <div class="releve-item card card--gabon">
@@ -42,7 +33,7 @@
 
 <h2 class="section-title">Principe de calcul</h2>
 <div class="card">
-  <p style="color:var(--texte-att); max-width:70ch;">
+  <p style="color:var(--text); max-width:70ch;">
     Chaque dossier reçoit un score hybride basé sur la performance scolaire
     et la distance réelle (Haversine). Le système distribue les places
     en tenant compte des capacités, et ordonne les candidats non attribués
