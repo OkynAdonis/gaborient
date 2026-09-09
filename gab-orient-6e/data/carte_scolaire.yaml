@@ -1,109 +1,541 @@
 etablissements:
-- id: GAB001
-  nom: Lycée National Léon Mba
-  type: public
-  commune: Libreville
-  quartier: Glass
-  latitude: 0.3901
-  longitude: 9.4544
-  capacite_6eme: 180
-  places_occupees: 0
-- id: GAB002
-  nom: Collège Notre-Dame des Trois Épis
-  type: conventionné
-  commune: Libreville
-  quartier: Nombakélé
-  latitude: 0.3934
-  longitude: 9.4478
-  capacite_6eme: 120
-  places_occupees: 0
-- id: GAB003
-  nom: Lycée Djoué Dabany
-  type: public
-  commune: Libreville
-  quartier: Akébé
-  latitude: 0.4212
-  longitude: 9.4658
-  capacite_6eme: 170
-  places_occupees: 0
-- id: GAB004
-  nom: Collège Sainte-Marie
-  type: conventionné
-  commune: Libreville
-  quartier: Louis
-  latitude: 0.3833
-  longitude: 9.45
-  capacite_6eme: 110
-  places_occupees: 0
-- id: GAB005
-  nom: Lycée d'Owendo
-  type: public
-  commune: Owendo
-  quartier: Centre-ville
-  latitude: 0.2911
-  longitude: 9.5006
-  capacite_6eme: 140
-  places_occupees: 0
-- id: GAB006
-  nom: Lycée Technique National Omar Bongo
-  type: public
-  commune: Libreville
-  quartier: Nzeng-Ayong
-  latitude: 0.405
-  longitude: 9.485
-  capacite_6eme: 200
-  places_occupees: 0
-- id: GAB007
-  nom: Collège Bessieux
-  type: conventionné
-  commune: Libreville
-  quartier: Louis
-  latitude: 0.3805
-  longitude: 9.4462
-  capacite_6eme: 100
-  places_occupees: 0
-- id: GAB008
-  nom: Lycée d'Akanda
-  type: public
-  commune: Akanda
-  quartier: Centre
-  latitude: 0.5300
-  longitude: 9.4450
-  capacite_6eme: 150
-  places_occupees: 0
-- id: GAB009
-  nom: Collège Immaculée Conception
-  type: conventionné
-  commune: Libreville
-  quartier: Glass
-  latitude: 0.3925
-  longitude: 9.457
-  capacite_6eme: 90
-  places_occupees: 0
-- id: GAB010
-  nom: Lycée de la Peyrie
-  type: public
-  commune: Libreville
-  quartier: Peyrie
-  latitude: 0.435
-  longitude: 9.452
-  capacite_6eme: 160
-  places_occupees: 0
-- id: GAB011
-  nom: Collège Saint-Jean
-  type: conventionné
-  commune: Libreville
-  quartier: Mont-Bouët
-  latitude: 0.3950
-  longitude: 9.4580
-  capacite_6eme: 130
-  places_occupees: 0
-- id: GAB012
-  nom: Lycée de l'Amitié
-  type: public
-  commune: Libreville
-  quartier: Nzeng-Ayong
-  latitude: 0.4121
-  longitude: 9.4809
-  capacite_6eme: 115
-  places_occupees: 0
+  - id: GAB001
+    nom: Lycée National Léon Mba
+    type: public
+    commune: Libreville
+    quartier: Glass
+    latitude: 0.3908
+    longitude: 9.4542
+    capacite_6eme: 180
+    places_occupees: 0
+  - id: GAB002
+    nom: Collège Notre-Dame des Trois Épis
+    type: conventionné
+    commune: Libreville
+    quartier: Nombakélé
+    latitude: 0.3934
+    longitude: 9.4478
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB003
+    nom: Lycée Djoué Dabany
+    type: public
+    commune: Libreville
+    quartier: Akébé
+    latitude: 0.4212
+    longitude: 9.4658
+    capacite_6eme: 170
+    places_occupees: 0
+  - id: GAB004
+    nom: Collège et Lycée Sainte-Marie
+    type: conventionné
+    commune: Libreville
+    quartier: Louis
+    latitude: 0.3833
+    longitude: 9.4500
+    capacite_6eme: 110
+    places_occupees: 0
+  - id: GAB005
+    nom: Lycée d'Owendo
+    type: public
+    commune: Owendo
+    quartier: Centre-ville
+    latitude: 0.2911
+    longitude: 9.5006
+    capacite_6eme: 140
+    places_occupees: 0
+  - id: GAB006
+    nom: Lycée Technique National Omar Bongo
+    type: public
+    commune: Libreville
+    quartier: Nzeng-Ayong
+    latitude: 0.4052
+    longitude: 9.4851
+    capacite_6eme: 200
+    places_occupees: 0
+  - id: GAB007
+    nom: Collège et Lycée Bessieux
+    type: conventionné
+    commune: Libreville
+    quartier: Louis
+    latitude: 0.3805
+    longitude: 9.4462
+    capacite_6eme: 100
+    places_occupees: 0
+  - id: GAB008
+    nom: Lycée d'Akanda
+    type: public
+    commune: Akanda
+    quartier: Centre
+    latitude: 0.5200
+    longitude: 9.4100
+    capacite_6eme: 150
+    places_occupees: 0
+  - id: GAB009
+    nom: Collège Immaculée Conception
+    type: conventionné
+    commune: Libreville
+    quartier: Glass
+    latitude: 0.3925
+    longitude: 9.4570
+    capacite_6eme: 90
+    places_occupees: 0
+  - id: GAB010
+    nom: Lycée de la Peyrie
+    type: public
+    commune: Libreville
+    quartier: Peyrie
+    latitude: 0.4350
+    longitude: 9.4520
+    capacite_6eme: 160
+    places_occupees: 0
+  - id: GAB011
+    nom: Collège Saint-Jean
+    type: conventionné
+    commune: Libreville
+    quartier: Mont-Bouët
+    latitude: 0.3965
+    longitude: 9.4435
+    capacite_6eme: 130
+    places_occupees: 0
+  - id: GAB012
+    nom: Lycée Paul Indjendjet Gondjout
+    type: public
+    commune: Libreville
+    quartier: Montagne Sainte
+    latitude: 0.3985
+    longitude: 9.4560
+    capacite_6eme: 190
+    places_occupees: 0
+  - id: GAB013
+    nom: Lycée d'Okala
+    type: public
+    commune: Akanda
+    quartier: Okala
+    latitude: 0.4520
+    longitude: 9.4280
+    capacite_6eme: 140
+    places_occupees: 0
+  - id: GAB014
+    nom: Lycée de Mikolongo
+    type: public
+    commune: Owendo
+    quartier: Mikolongo
+    latitude: 0.3150
+    longitude: 9.4820
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB015
+    nom: Lycée de Nzeng-Ayong
+    type: public
+    commune: Libreville
+    quartier: Nzeng-Ayong
+    latitude: 0.4120
+    longitude: 9.4780
+    capacite_6eme: 210
+    places_occupees: 0
+  - id: GAB016
+    nom: Lycée Maimouna
+    type: privé
+    commune: Libreville
+    quartier: Akébé
+    latitude: 0.4180
+    longitude: 9.4620
+    capacite_6eme: 85
+    places_occupees: 0
+  - id: GAB017
+    nom: Lycée Protestant Baraka
+    type: conventionné
+    commune: Libreville
+    quartier: Baraka
+    latitude: 0.3840
+    longitude: 9.4520
+    capacite_6eme: 95
+    places_occupees: 0
+  - id: GAB018
+    nom: Lycée de Bikélé
+    type: public
+    commune: Ntoum
+    quartier: Bikélé
+    latitude: 0.3525
+    longitude: 9.5540
+    capacite_6eme: 110
+    places_occupees: 0
+  - id: GAB019
+    nom: Lycée de l'Excellence d'Angondjé
+    type: public
+    commune: Akanda
+    quartier: Angondjé
+    latitude: 0.5230
+    longitude: 9.4215
+    capacite_6eme: 150
+    places_occupees: 0
+  - id: GAB020
+    nom: Lycée Nelson Mandela
+    type: public
+    commune: Libreville
+    quartier: Haut de Gué-Gué
+    latitude: 0.4285
+    longitude: 9.4355
+    capacite_6eme: 180
+    places_occupees: 0
+  - id: GAB021
+    nom: Lycée National d'Enseignement Secondaire d'Ambowé
+    type: public
+    commune: Libreville
+    quartier: Ambowé
+    latitude: 0.4372
+    longitude: 9.4265
+    capacite_6eme: 150
+    places_occupees: 0
+  - id: GAB022
+    nom: Lycée Public d'Avorbam
+    type: public
+    commune: Akanda
+    quartier: Avorbam
+    latitude: 0.5050
+    longitude: 9.4080
+    capacite_6eme: 160
+    places_occupees: 0
+  - id: GAB023
+    nom: Lycée de Sibang
+    type: public
+    commune: Libreville
+    quartier: Sibang
+    latitude: 0.4278
+    longitude: 9.4885
+    capacite_6eme: 160
+    places_occupees: 0
+  - id: GAB024
+    nom: Lycée Georges Mabignath
+    type: public
+    commune: Libreville
+    quartier: Akébé
+    latitude: 0.4120
+    longitude: 9.4580
+    capacite_6eme: 170
+    places_occupees: 0
+  - id: GAB025
+    nom: Lycée Thuriaf Bantsantsa
+    type: public
+    commune: Port-Gentil
+    quartier: Centre-ville
+    latitude: -0.7185
+    longitude: 8.7820
+    capacite_6eme: 200
+    places_occupees: 0
+  - id: GAB026
+    nom: Lycée d'État Charles Mefane
+    type: public
+    commune: Lambaréné
+    quartier: Adouma
+    latitude: -0.7025
+    longitude: 10.2315
+    capacite_6eme: 160
+    places_occupees: 0
+  - id: GAB027
+    nom: Lycée d'État Jean-Hilaire Aubame Eyeghe
+    type: public
+    commune: Libreville
+    quartier: Nkembo
+    latitude: 0.4165
+    longitude: 9.4490
+    capacite_6eme: 190
+    places_occupees: 0
+  - id: GAB028
+    nom: Lycée d'État Richard Nguema Bekale
+    type: public
+    commune: Oyem
+    quartier: Montagne
+    latitude: 1.5995
+    longitude: 11.5790
+    capacite_6eme: 180
+    places_occupees: 0
+  - id: GAB029
+    nom: Lycée d'État Henri Monfort
+    type: public
+    commune: Franceville
+    quartier: Poto-Poto
+    latitude: -1.6335
+    longitude: 13.5830
+    capacite_6eme: 180
+    places_occupees: 0
+  - id: GAB030
+    nom: Lycée d'État de Makokou
+    type: public
+    commune: Makokou
+    quartier: Centre
+    latitude: 0.5735
+    longitude: 12.8625
+    capacite_6eme: 140
+    places_occupees: 0
+  - id: GAB031
+    nom: Lycée d'État de Mouila
+    type: public
+    commune: Mouila
+    quartier: Dikongo
+    latitude: -1.8685
+    longitude: 11.0550
+    capacite_6eme: 150
+    places_occupees: 0
+  - id: GAB032
+    nom: Lycée d'État de Tchibanga
+    type: public
+    commune: Tchibanga
+    quartier: Massanga
+    latitude: -2.8535
+    longitude: 11.0155
+    capacite_6eme: 140
+    places_occupees: 0
+  - id: GAB033
+    nom: Lycée d'État de Koulamoutou
+    type: public
+    commune: Koulamoutou
+    quartier: Centre
+    latitude: -1.1305
+    longitude: 12.4735
+    capacite_6eme: 140
+    places_occupees: 0
+  - id: GAB034
+    nom: Lycée Blaise Pascal
+    type: conventionné
+    commune: Libreville
+    quartier: Gros-Bouquet
+    latitude: 0.4320
+    longitude: 9.4290
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB035
+    nom: Lycée Français Victor Hugo
+    type: conventionné
+    commune: Port-Gentil
+    quartier: Cap Lopez
+    latitude: -0.7140
+    longitude: 8.7750
+    capacite_6eme: 100
+    places_occupees: 0
+  - id: GAB036
+    nom: Lycée Henri Sylvoz
+    type: conventionné
+    commune: Moanda
+    quartier: Montagne Bleue
+    latitude: -1.5650
+    longitude: 13.2010
+    capacite_6eme: 110
+    places_occupees: 0
+  - id: GAB037
+    nom: École Internationale Ruban Vert
+    type: privé
+    commune: Libreville
+    quartier: Batterie IV
+    latitude: 0.4215
+    longitude: 9.4320
+    capacite_6eme: 60
+    places_occupees: 0
+  - id: GAB038
+    nom: American International School of Libreville
+    type: privé
+    commune: Libreville
+    quartier: Batterie IV
+    latitude: 0.4195
+    longitude: 9.4285
+    capacite_6eme: 50
+    places_occupees: 0
+  - id: GAB039
+    nom: Lycée International Michel Dirat
+    type: privé
+    commune: Libreville
+    quartier: Centre-ville
+    latitude: 0.3955
+    longitude: 9.4465
+    capacite_6eme: 80
+    places_occupees: 0
+  - id: GAB040
+    nom: École Maarif Turco-Gabonaise
+    type: privé
+    commune: Libreville
+    quartier: Sablière
+    latitude: 0.4635
+    longitude: 9.4180
+    capacite_6eme: 90
+    places_occupees: 0
+  - id: GAB041
+    nom: Lycée Franco-Britannique
+    type: privé
+    commune: Akanda
+    quartier: Okala
+    latitude: 0.4570
+    longitude: 9.4210
+    capacite_6eme: 80
+    places_occupees: 0
+  - id: GAB042
+    nom: Lycée Technique Jean-Fidèle Otando
+    type: public
+    commune: Port-Gentil
+    quartier: Nouveau Port
+    latitude: -0.7250
+    longitude: 8.7900
+    capacite_6eme: 150
+    places_occupees: 0
+  - id: GAB043
+    nom: Lycée Technique de Franceville
+    type: public
+    commune: Franceville
+    quartier: Ondaye
+    latitude: -1.6390
+    longitude: 13.5890
+    capacite_6eme: 140
+    places_occupees: 0
+  - id: GAB044
+    nom: Lycée Technique Commercial de Libreville
+    type: public
+    commune: Libreville
+    quartier: Centre-ville
+    latitude: 0.3930
+    longitude: 9.4510
+    capacite_6eme: 150
+    places_occupees: 0
+  - id: GAB045
+    nom: Lycée Technique de Moanda
+    type: public
+    commune: Moanda
+    quartier: Centre
+    latitude: -1.5580
+    longitude: 13.2100
+    capacite_6eme: 130
+    places_occupees: 0
+  - id: GAB046
+    nom: Lycée Technique de Bifoun
+    type: public
+    commune: Bifoun
+    quartier: Carrefour Bifoun
+    latitude: -0.4780
+    longitude: 10.4280
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB047
+    nom: Collège et Lycée Notre Dame de Quaben
+    type: conventionné
+    commune: Libreville
+    quartier: Quaben
+    latitude: 0.4245
+    longitude: 9.4275
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB048
+    nom: Lycée Saint-Gabriel
+    type: conventionné
+    commune: Mouila
+    quartier: Saint-Gabriel
+    latitude: -1.8720
+    longitude: 11.0490
+    capacite_6eme: 130
+    places_occupees: 0
+  - id: GAB049
+    nom: Lycée de l'Alliance Chrétienne
+    type: conventionné
+    commune: Libreville
+    quartier: Belle-Vue
+    latitude: 0.4140
+    longitude: 9.4520
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB050
+    nom: Lycée Saint-Augustin
+    type: conventionné
+    commune: Franceville
+    quartier: Saint-Augustin
+    latitude: -1.6280
+    longitude: 13.5790
+    capacite_6eme: 130
+    places_occupees: 0
+  - id: GAB051
+    nom: Lycée Catholique Horizon
+    type: conventionné
+    commune: Akanda
+    quartier: Angondjé
+    latitude: 0.4850
+    longitude: 9.4220
+    capacite_6eme: 110
+    places_occupees: 0
+  - id: GAB052
+    nom: Collège et Lycée Mgr Jean-Jérôme Adam
+    type: conventionné
+    commune: Franceville
+    quartier: Mboumba
+    latitude: -1.6350
+    longitude: 13.5720
+    capacite_6eme: 130
+    places_occupees: 0
+  - id: GAB053
+    nom: Lycée Protestant d'Oyem
+    type: conventionné
+    commune: Oyem
+    quartier: Akoakam
+    latitude: 1.6050
+    longitude: 11.5850
+    capacite_6eme: 120
+    places_occupees: 0
+  - id: GAB054
+    nom: Institution Internationale Berthe et Jean (2IBJ)
+    type: privé
+    commune: Ntoum
+    quartier: Essassa
+    latitude: 0.3680
+    longitude: 9.6120
+    capacite_6eme: 100
+    places_occupees: 0
+  - id: GAB055
+    nom: Lycée Privé Awassi
+    type: privé
+    commune: Libreville
+    quartier: Kinguélé
+    latitude: 0.4075
+    longitude: 9.4615
+    capacite_6eme: 90
+    places_occupees: 0
+  - id: GAB056
+    nom: Grand Collège du Gabon
+    type: privé
+    commune: Libreville
+    quartier: Mindoubé
+    latitude: 0.4110
+    longitude: 9.4720
+    capacite_6eme: 100
+    places_occupees: 0
+  - id: GAB057
+    nom: Lycée Privé Lamatsanguine
+    type: privé
+    commune: Libreville
+    quartier: Charbonnages
+    latitude: 0.4430
+    longitude: 9.4480
+    capacite_6eme: 95
+    places_occupees: 0
+  - id: GAB058
+    nom: Lycée Intercontinental d'Enseignement Général et Technique
+    type: privé
+    commune: Libreville
+    quartier: Oloumi
+    latitude: 0.3880
+    longitude: 9.4720
+    capacite_6eme: 90
+    places_occupees: 0
+  - id: GAB059
+    nom: Complexe Scolaire Privé Laïc Le Printemps
+    type: privé
+    commune: Libreville
+    quartier: Glass
+    latitude: 0.3915
+    longitude: 9.4530
+    capacite_6eme: 85
+    places_occupees: 0
+  - id: GAB060
+    nom: Lycée Privé de la Valeur
+    type: privé
+    commune: Libreville
+    quartier: Alibandeng
+    latitude: 0.4490
+    longitude: 9.4310
+    capacite_6eme: 80
+    places_occupees: 0

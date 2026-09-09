@@ -9,7 +9,10 @@
   </div>
   <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
     <button id="btn-reinit-global" type="button" class="btn btn-ghost" style="font-size:0.8rem;">
-      ↺ Vue d'ensemble
+      ↺ Grand Libreville
+    </button>
+    <button id="btn-vue-nationale" type="button" class="btn btn-primary" style="font-size:0.8rem;">
+      🇬🇦 Vue Nationale (Tout le Gabon)
     </button>
   </div>
 </div>
@@ -83,12 +86,14 @@
     <button type="button" class="carte-chip" data-quartier="Mont-Bouët">Mont-Bouët</button>
     <button type="button" class="carte-chip" data-quartier="Nzeng-Ayong">Nzeng-Ayong</button>
     <button type="button" class="carte-chip" data-quartier="Akébé">Akébé</button>
+    <button type="button" class="carte-chip" data-quartier="Angondjé">Angondjé</button>
     <button type="button" class="carte-chip" data-quartier="Okala">Okala</button>
     <button type="button" class="carte-chip" data-quartier="Mikolongo">Mikolongo</button>
-    <button type="button" class="carte-chip" data-quartier="Peyrie">Peyrie</button>
-    <button type="button" class="carte-chip" data-quartier="Nombakélé">Nombakélé</button>
-    <button type="button" class="carte-chip" data-quartier="Bikélé">Bikélé</button>
-    <button type="button" class="carte-chip" data-quartier="Baraka">Baraka</button>
+    <button type="button" class="carte-chip" data-quartier="Port-Gentil">Port-Gentil</button>
+    <button type="button" class="carte-chip" data-quartier="Franceville">Franceville</button>
+    <button type="button" class="carte-chip" data-quartier="Oyem">Oyem</button>
+    <button type="button" class="carte-chip" data-quartier="Lambaréné">Lambaréné</button>
+    <button type="button" class="carte-chip" data-quartier="Mouila">Mouila</button>
   </div>
 
   <!-- Toggles secondaires -->
@@ -186,47 +191,72 @@
   const etablissements = <%- JSON.stringify(etablissements) %>;
   const eleves = <%- JSON.stringify(eleves) %>;
 
-  // Catalogue des coordonnées de référence des quartiers du Grand Libreville
+  // Catalogue des coordonnées de référence des quartiers et villes du Gabon
   const CATALOGUE_QUARTIERS = {
+    // Grand Libreville & Communes limitrophes
     "Louis": { commune: "Libreville", lat: 0.3860, lon: 9.4510 },
-    "Glass": { commune: "Libreville", lat: 0.3901, lon: 9.4544 },
+    "Glass": { commune: "Libreville", lat: 0.3908, lon: 9.4542 },
     "Mont-Bouët": { commune: "Libreville", lat: 0.3965, lon: 9.4435 },
-    "Akébé": { commune: "Libreville", lat: 0.4200, lon: 9.4640 },
+    "Montagne Sainte": { commune: "Libreville", lat: 0.3985, lon: 9.4560 },
+    "Akébé": { commune: "Libreville", lat: 0.4120, lon: 9.4580 },
     "Nzeng-Ayong": { commune: "Libreville", lat: 0.4080, lon: 9.4810 },
     "Nombakélé": { commune: "Libreville", lat: 0.3934, lon: 9.4478 },
-    "Centre-ville": { commune: "Libreville", lat: 0.3920, lon: 9.4580 },
+    "Centre-ville": { commune: "Libreville", lat: 0.3925, lon: 9.4540 },
     "Peyrie": { commune: "Libreville", lat: 0.4350, lon: 9.4520 },
     "Baraka": { commune: "Libreville", lat: 0.3840, lon: 9.4520 },
-    "Okala": { commune: "Akanda", lat: 0.4520, lon: 9.4280 },
-    "Centre": { commune: "Akanda", lat: 0.5200, lon: 9.4100 },
-    "Angondjé": { commune: "Akanda", lat: 0.4900, lon: 9.4150 },
-    "Avorbam": { commune: "Akanda", lat: 0.5050, lon: 9.4200 },
-    "Mikolongo": { commune: "Owendo", lat: 0.3150, lon: 9.4820 },
-    "Owendo Port": { commune: "Owendo", lat: 0.2911, lon: 9.5006 },
-    "Bikélé": { commune: "Ntoum", lat: 0.3520, lon: 9.5540 },
-    "Ntoum": { commune: "Ntoum", lat: 0.3850, lon: 9.7600 },
+    "Haut de Gué-Gué": { commune: "Libreville", lat: 0.4285, lon: 9.4355 },
+    "Ambowé": { commune: "Libreville", lat: 0.4372, lon: 9.4265 },
+    "Sibang": { commune: "Libreville", lat: 0.4278, lon: 9.4885 },
+    "Nkembo": { commune: "Libreville", lat: 0.4165, lon: 9.4490 },
+    "Gros-Bouquet": { commune: "Libreville", lat: 0.4320, lon: 9.4290 },
+    "Batterie IV": { commune: "Libreville", lat: 0.4215, lon: 9.4320 },
+    "Sablière": { commune: "Libreville", lat: 0.4635, lon: 9.4180 },
+    "Quaben": { commune: "Libreville", lat: 0.4245, lon: 9.4275 },
+    "Belle-Vue": { commune: "Libreville", lat: 0.4140, lon: 9.4520 },
+    "Kinguélé": { commune: "Libreville", lat: 0.4075, lon: 9.4615 },
+    "Mindoubé": { commune: "Libreville", lat: 0.4110, lon: 9.4720 },
+    "Charbonnages": { commune: "Libreville", lat: 0.4430, lon: 9.4480 },
+    "Oloumi": { commune: "Libreville", lat: 0.3880, lon: 9.4720 },
+    "Alibandeng": { commune: "Libreville", lat: 0.4490, lon: 9.4310 },
     "Chinchou": { commune: "Libreville", lat: 0.3855, lon: 9.4485 },
     "Lalala": { commune: "Libreville", lat: 0.3820, lon: 9.4600 },
-    "Oloumi": { commune: "Libreville", lat: 0.3780, lon: 9.4650 },
     "Plein-Ciel": { commune: "Libreville", lat: 0.3950, lon: 9.4950 },
-    "Charbonnages": { commune: "Libreville", lat: 0.4300, lon: 9.4400 },
     "Sotega": { commune: "Libreville", lat: 0.4150, lon: 9.4550 },
     "Rio": { commune: "Libreville", lat: 0.4050, lon: 9.4550 },
-    "Belle-Vue": { commune: "Libreville", lat: 0.4000, lon: 9.4600 },
-    "Kinguélé": { commune: "Libreville", lat: 0.4100, lon: 9.4700 },
-    "Mindoubé": { commune: "Libreville", lat: 0.3700, lon: 9.4850 },
-    "Sablière": { commune: "Libreville", lat: 0.4650, lon: 9.3950 },
-    "Plaine-Orety": { commune: "Libreville", lat: 0.3980, lon: 9.4480 }
+    "Plaine-Orety": { commune: "Libreville", lat: 0.3980, lon: 9.4480 },
+    "Okala": { commune: "Akanda", lat: 0.4520, lon: 9.4280 },
+    "Angondjé": { commune: "Akanda", lat: 0.5230, lon: 9.4215 },
+    "Avorbam": { commune: "Akanda", lat: 0.5050, lon: 9.4080 },
+    "Centre (Akanda)": { commune: "Akanda", lat: 0.5200, lon: 9.4100 },
+    "Mikolongo": { commune: "Owendo", lat: 0.3150, lon: 9.4820 },
+    "Owendo Port": { commune: "Owendo", lat: 0.2911, lon: 9.5006 },
+    "Bikélé": { commune: "Ntoum", lat: 0.3525, lon: 9.5540 },
+    "Essassa": { commune: "Ntoum", lat: 0.3680, lon: 9.6120 },
+    "Ntoum": { commune: "Ntoum", lat: 0.3850, lon: 9.7600 },
+
+    // Villes de provinces et chefs-lieux
+    "Port-Gentil": { commune: "Port-Gentil", lat: -0.7185, lon: 8.7820 },
+    "Franceville": { commune: "Franceville", lat: -1.6335, lon: 13.5830 },
+    "Oyem": { commune: "Oyem", lat: 1.5995, lon: 11.5790 },
+    "Lambaréné": { commune: "Lambaréné", lat: -0.7025, lon: 10.2315 },
+    "Mouila": { commune: "Mouila", lat: -1.8685, lon: 11.0550 },
+    "Tchibanga": { commune: "Tchibanga", lat: -2.8535, lon: 11.0155 },
+    "Koulamoutou": { commune: "Koulamoutou", lat: -1.1305, lon: 12.4735 },
+    "Makokou": { commune: "Makokou", lat: 0.5735, lon: 12.8625 },
+    "Moanda": { commune: "Moanda", lat: -1.5650, lon: 13.2010 },
+    "Bifoun": { commune: "Bifoun", lat: -0.4780, lon: 10.4280 }
   };
 
   // Compléter le catalogue avec les quartiers des établissements qui n'y figureraient pas encore
   etablissements.forEach(e => {
-    if (e.quartier && !CATALOGUE_QUARTIERS[e.quartier]) {
-      CATALOGUE_QUARTIERS[e.quartier] = {
-        commune: e.commune || "Libreville",
-        lat: Number(e.latitude),
-        lon: Number(e.longitude)
-      };
+    if (e.quartier) {
+      if (!CATALOGUE_QUARTIERS[e.quartier]) {
+        CATALOGUE_QUARTIERS[e.quartier] = {
+          commune: e.commune || "Gabon",
+          lat: Number(e.latitude),
+          lon: Number(e.longitude)
+        };
+      }
     }
   });
 
@@ -373,9 +403,8 @@
     } else {
       statutBadge = `
         <div style="background:rgba(58,117,196,0.12); border:1px solid #3A75C4; color:#1e40af; padding:5px 8px; border-radius:6px; font-size:0.75rem; font-weight:600; margin-bottom:8px;">
-          📋 Candidat inscrit — En attente du calcul d'affectation
+          📋 Candidat inscrit - En attente du calcul d'affectation
         </div>
-      `;
     }
 
     let voeuxHtml = '';
@@ -565,7 +594,7 @@
       }
       legendQuartierItem.style.display = 'none';
 
-      badgeZoneEl.textContent = 'Grand Libreville (Tous)';
+      badgeZoneEl.textContent = 'Tous les établissements (National & Libreville)';
       statutRechercheEl.textContent = 'Vue d\'ensemble';
 
       etablissements.forEach(e => {
@@ -854,11 +883,23 @@
     });
   });
 
-  // Bouton réinitialiser vue d'ensemble
-  document.getElementById('btn-reinit-global').addEventListener('click', () => {
-    setQuartier("");
-    map.flyTo([0.395, 9.465], 12);
-  });
+  // Bouton réinitialiser vue Grand Libreville
+  const btnReinitGlobal = document.getElementById('btn-reinit-global');
+  if (btnReinitGlobal) {
+    btnReinitGlobal.addEventListener('click', () => {
+      setQuartier("");
+      map.flyTo([0.395, 9.465], 12);
+    });
+  }
+
+  // Bouton vue nationale (Tout le Gabon)
+  const btnVueNationale = document.getElementById('btn-vue-nationale');
+  if (btnVueNationale) {
+    btnVueNationale.addEventListener('click', () => {
+      setQuartier("");
+      map.flyTo([-0.7, 11.5], 7);
+    });
+  }
 
   // Système de recherche avec suggestions dynamiques
   inputQuartierEl.addEventListener('input', (e) => {
