@@ -1,17 +1,28 @@
 <%- include('partials/header', { title: 'Résultats — ORIENT 6ÈME', annee_courante: (typeof rapport !== 'undefined' && rapport.annee) ? rapport.annee : annee_courante }) %>
 
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">
+      Résultats de la session <% if (rapport.annee) { %>— <%= rapport.annee %><% } %>
+    </h1>
+    <% if (!(typeof archive !== 'undefined' && archive)) { %>
+    <p style="color:var(--encre-douce); margin:0;">
+      Rapport officiel généré pour la campagne d'affectation en 6ème.
+    </p>
+    <% } %>
+  </div>
+  <div>
+    <button onclick="window.print()" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:0.5rem; cursor:pointer;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+      Imprimer / Exporter le Rapport officiel
+    </button>
+  </div>
+</div>
+
 <% if (typeof archive !== 'undefined' && archive) { %>
 <div style="background:rgba(217,146,46,0.15); color:#92600F; padding:0.9rem 1.25rem; border-radius:var(--rayon-petit); margin-bottom:1.5rem; font-weight:600;">
   Archive — année scolaire <%= rapport.annee || '?' %> (lecture seule)
 </div>
-<% } %>
-<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">
-  Résultats de la session <% if (rapport.annee) { %>— <%= rapport.annee %><% } %>
-</h1>
-<% if (!(typeof archive !== 'undefined' && archive)) { %>
-<p style="color:var(--encre-douce); margin-bottom:1rem;">
-  Le rapport a été produit et est disponible dans le dossier <code>output/</code> au format YAML et JSON.
-</p>
 <% } %>
 
 <div class="releve">

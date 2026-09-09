@@ -1,21 +1,253 @@
-<%- include('partials/header', { title: 'Carte — ORIENT 6ÈME', annee_courante, currentPath: '/carte', extraHead: '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />' }) %>
+<%- include('partials/header', { title: 'Carte & Recherche par quartier — ORIENT 6ÈME', annee_courante, currentPath: '/carte', extraHead: '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />' }) %>
 
-<h1 class="display" style="font-size:2rem; margin-bottom:0.4rem;">Carte des établissements</h1>
-<p style="color:var(--encre-douce); margin-bottom:1.5rem;">
-  Visualisation géographique des structures et des dossiers candidats.
-</p>
+<div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">
+  <div>
+    <h1 class="display" style="font-size:2rem; margin-bottom:0.3rem;">Carte interactive des établissements</h1>
+    <p style="color:var(--encre-douce); margin:0;">
+      Recherchez et explorez les collèges et lycées environnants par quartier dans le Grand Libreville.
+    </p>
+  </div>
+  <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+    <button id="btn-reinit-global" type="button" class="btn btn-ghost" style="font-size:0.8rem;">
+      ↺ Vue d'ensemble
+    </button>
+  </div>
+</div>
 
-<div id="map"></div>
+<!-- BARRE DE RECHERCHE ET FILTRE PAR QUARTIER -->
+<div class="carte-search-card" id="carte-search-container">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; align-items:end;">
+    <!-- Recherche textuelle avec auto-complétion -->
+    <div style="position:relative;">
+      <label for="input-quartier" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.4rem; color:var(--text);">
+        Rechercher un quartier
+      </label>
+      <div style="position:relative;">
+        <input 
+          type="text" 
+          id="input-quartier" 
+          placeholder="Ex: Louis, Akébé, Okala, Nzeng-Ayong..." 
+          style="width:100%; padding:0.65rem 0.9rem; border-radius:10px; font-size:0.85rem;"
+          autocomplete="off"
+        />
+        <div id="quartier-suggestions" style="display:none; position:absolute; left:0; right:0; top:100%; background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-strong); z-index:1000; max-height:220px; overflow-y:auto; margin-top:4px;"></div>
+      </div>
+    </div>
+
+    <!-- Sélecteur rapide de quartier répertorié -->
+    <div>
+      <label for="select-quartier" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.4rem; color:var(--text);">
+        Ou choisir dans la liste
+      </label>
+      <select id="select-quartier" style="width:100%; padding:0.65rem 0.9rem; border-radius:10px; font-size:0.85rem;">
+        <option value="">Tous les quartiers (vue globale)</option>
+      </select>
+    </div>
+
+    <!-- Rayon de recherche -->
+    <div>
+      <label for="select-rayon" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.4rem; color:var(--text);">
+        Rayon de proximité
+      </label>
+      <select id="select-rayon" style="width:100%; padding:0.65rem 0.9rem; border-radius:10px; font-size:0.85rem;">
+        <option value="1.5">1.5 km (Immédiat)</option>
+        <option value="3" selected>3.0 km (Quartier et abords)</option>
+        <option value="5">5.0 km (Secteur élargi)</option>
+        <option value="10">10.0 km (Périmètre étendu)</option>
+        <option value="999">Sans limite (Tous)</option>
+      </select>
+    </div>
+
+    <!-- Type d'établissement -->
+    <div>
+      <label for="select-type" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.4rem; color:var(--text);">
+        Type d'établissement
+      </label>
+      <select id="select-type" style="width:100%; padding:0.65rem 0.9rem; border-radius:10px; font-size:0.85rem;">
+        <option value="tous">Tous (Public, Conv., Privé)</option>
+        <option value="public">Publics uniquement</option>
+        <option value="conventionné">Conventionnés uniquement</option>
+        <option value="privé">Privés uniquement</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Puces d'accès rapide aux quartiers populaires -->
+  <div style="margin-top:1rem; padding-top:0.85rem; border-top:1px solid var(--line); display:flex; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+    <span style="font-size:0.75rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-right:0.25rem;">
+      Accès rapide :
+    </span>
+    <button type="button" class="carte-chip is-active" data-quartier="">Tous</button>
+    <button type="button" class="carte-chip" data-quartier="Louis">Louis</button>
+    <button type="button" class="carte-chip" data-quartier="Glass">Glass</button>
+    <button type="button" class="carte-chip" data-quartier="Mont-Bouët">Mont-Bouët</button>
+    <button type="button" class="carte-chip" data-quartier="Nzeng-Ayong">Nzeng-Ayong</button>
+    <button type="button" class="carte-chip" data-quartier="Akébé">Akébé</button>
+    <button type="button" class="carte-chip" data-quartier="Okala">Okala</button>
+    <button type="button" class="carte-chip" data-quartier="Mikolongo">Mikolongo</button>
+    <button type="button" class="carte-chip" data-quartier="Peyrie">Peyrie</button>
+    <button type="button" class="carte-chip" data-quartier="Nombakélé">Nombakélé</button>
+    <button type="button" class="carte-chip" data-quartier="Bikélé">Bikélé</button>
+    <button type="button" class="carte-chip" data-quartier="Baraka">Baraka</button>
+  </div>
+
+  <!-- Toggles secondaires -->
+  <div style="margin-top:0.85rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; font-size:0.8rem; color:var(--muted);">
+    <div style="display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap;">
+      <label style="display:inline-flex; align-items:center; gap:0.4rem; cursor:pointer; font-weight:700; color:var(--text);">
+        <input type="checkbox" id="toggle-eleves" checked />
+        <span>Afficher les élèves candidats (<%= (eleves || []).length %>)</span>
+      </label>
+
+      <!-- Filtre par statut d'affectation des élèves -->
+      <div id="container-filtre-statut-eleves" style="display:inline-flex; align-items:center; gap:0.4rem;">
+        <label for="select-statut-eleves" style="font-size:0.75rem; font-weight:700; color:var(--text);">Statut :</label>
+        <select id="select-statut-eleves" style="padding:0.3rem 0.6rem; font-size:0.75rem; border-radius:8px; border:1px solid var(--line); background:var(--surface);">
+          <option value="tous">Tous les candidats (<%= (eleves || []).length %>)</option>
+          <option value="affecte">🟢 Affectés (<%= (eleves || []).filter(e => e.statut === 'affecte').length %>)</option>
+          <option value="liste_attente">🟡 Liste d'attente (<%= (eleves || []).filter(e => e.statut === 'liste_attente').length %>)</option>
+          <option value="non_affecte">🔴 Non affectés (<%= (eleves || []).filter(e => e.statut === 'non_affecte').length %>)</option>
+        </select>
+      </div>
+
+      <label style="display:inline-flex; align-items:center; gap:0.4rem; cursor:pointer;">
+        <input type="checkbox" id="toggle-masquer-hors-zone" checked />
+        <span>Masquer les structures hors du rayon sélectionné</span>
+      </label>
+    </div>
+    <div id="statut-recherche" style="font-weight:600; color:var(--primary);">
+      Mode vue générale
+    </div>
+  </div>
+</div>
+
+<!-- GRILLE CARTE + PANNEAU DES ÉCOLES ENVIRONNANTES -->
+<div class="carte-grid">
+  <!-- Colonne Carte -->
+  <div class="carte-map-container" style="position:relative;">
+    <div id="map"></div>
+
+    <!-- Légende intégrée sur la carte -->
+    <div id="carte-legende" style="position:absolute; bottom:16px; left:16px; z-index:990; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:0.6rem 0.85rem; font-size:0.75rem; box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:0.35rem; max-width:260px;">
+      <div style="font-weight:700; color:var(--text); margin-bottom:0.1rem;">Légende de la carte</div>
+      <div style="display:flex; align-items:center; gap:0.5rem; color:var(--text);">
+        <span style="display:inline-block; width:14px; height:14px; background:var(--gabon-green); border:2px solid var(--gabon-yellow); border-radius:3px;"></span>
+        <span>Établissement scolaire</span>
+      </div>
+      <div id="legend-quartier-item" style="display:none; align-items:center; gap:0.5rem; color:var(--text);">
+        <span style="display:inline-block; width:14px; height:14px; background:var(--gabon-blue); border:2px solid #fff; border-radius:50%; box-shadow:0 0 4px rgba(0,0,0,0.5);"></span>
+        <span>Centre du quartier ciblé</span>
+      </div>
+      <div id="legend-eleve-affecte" style="display:flex; align-items:center; gap:0.5rem; color:var(--text);">
+        <span style="display:inline-block; width:11px; height:11px; background:#009543; border:2px solid #fff; border-radius:50%; box-shadow:0 0 2px rgba(0,0,0,0.4);"></span>
+        <span>Élève affecté (proximité validée)</span>
+      </div>
+      <div id="legend-eleve-attente" style="display:flex; align-items:center; gap:0.5rem; color:var(--text);">
+        <span style="display:inline-block; width:11px; height:11px; background:#eab308; border:2px solid #fff; border-radius:50%; box-shadow:0 0 2px rgba(0,0,0,0.4);"></span>
+        <span>Élève en liste d'attente</span>
+      </div>
+      <div id="legend-eleve-non" style="display:flex; align-items:center; gap:0.5rem; color:var(--text);">
+        <span style="display:inline-block; width:11px; height:11px; background:#ef4444; border:2px solid #fff; border-radius:50%; box-shadow:0 0 2px rgba(0,0,0,0.4);"></span>
+        <span>Élève non affecté</span>
+      </div>
+      <div id="legend-eleve-sans-statut" style="display:none; align-items:center; gap:0.5rem; color:var(--text);">
+        <span style="display:inline-block; width:11px; height:11px; background:#3A75C4; border:2px solid #fff; border-radius:50%; box-shadow:0 0 2px rgba(0,0,0,0.4);"></span>
+        <span>Candidat inscrit (avant session)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Colonne Panneau des résultats -->
+  <div class="carte-panel" id="carte-panel-resultats">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:0.75rem; border-bottom:1px solid var(--line);">
+      <div>
+        <h2 style="font-size:1.1rem; font-weight:800; margin:0 0 0.15rem 0; color:var(--text);">
+          Écoles environnantes
+        </h2>
+        <span id="label-resultats-count" style="font-size:0.8rem; color:var(--muted); font-weight:600;">
+          <%= (etablissements || []).length %> structures disponibles
+        </span>
+      </div>
+      <span id="badge-zone-selectionnee" class="badge" style="background:rgba(15,118,110,0.1); color:var(--primary); font-size:0.72rem;">
+        Grand Libreville
+      </span>
+    </div>
+
+    <!-- Liste scrollable des établissements -->
+    <div class="carte-panel-list" id="liste-ecoles-panel">
+      <!-- Rempli dynamiquement en JS -->
+    </div>
+  </div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+  // Données transmises par le serveur
   const etablissements = <%- JSON.stringify(etablissements) %>;
   const eleves = <%- JSON.stringify(eleves) %>;
 
-  const map = L.map('map').setView([0.39, 9.46], 12);
+  // Catalogue des coordonnées de référence des quartiers du Grand Libreville
+  const CATALOGUE_QUARTIERS = {
+    "Louis": { commune: "Libreville", lat: 0.3860, lon: 9.4510 },
+    "Glass": { commune: "Libreville", lat: 0.3901, lon: 9.4544 },
+    "Mont-Bouët": { commune: "Libreville", lat: 0.3965, lon: 9.4435 },
+    "Akébé": { commune: "Libreville", lat: 0.4200, lon: 9.4640 },
+    "Nzeng-Ayong": { commune: "Libreville", lat: 0.4080, lon: 9.4810 },
+    "Nombakélé": { commune: "Libreville", lat: 0.3934, lon: 9.4478 },
+    "Centre-ville": { commune: "Libreville", lat: 0.3920, lon: 9.4580 },
+    "Peyrie": { commune: "Libreville", lat: 0.4350, lon: 9.4520 },
+    "Baraka": { commune: "Libreville", lat: 0.3840, lon: 9.4520 },
+    "Okala": { commune: "Akanda", lat: 0.4520, lon: 9.4280 },
+    "Centre": { commune: "Akanda", lat: 0.5200, lon: 9.4100 },
+    "Angondjé": { commune: "Akanda", lat: 0.4900, lon: 9.4150 },
+    "Avorbam": { commune: "Akanda", lat: 0.5050, lon: 9.4200 },
+    "Mikolongo": { commune: "Owendo", lat: 0.3150, lon: 9.4820 },
+    "Owendo Port": { commune: "Owendo", lat: 0.2911, lon: 9.5006 },
+    "Bikélé": { commune: "Ntoum", lat: 0.3520, lon: 9.5540 },
+    "Ntoum": { commune: "Ntoum", lat: 0.3850, lon: 9.7600 },
+    "Chinchou": { commune: "Libreville", lat: 0.3855, lon: 9.4485 },
+    "Lalala": { commune: "Libreville", lat: 0.3820, lon: 9.4600 },
+    "Oloumi": { commune: "Libreville", lat: 0.3780, lon: 9.4650 },
+    "Plein-Ciel": { commune: "Libreville", lat: 0.3950, lon: 9.4950 },
+    "Charbonnages": { commune: "Libreville", lat: 0.4300, lon: 9.4400 },
+    "Sotega": { commune: "Libreville", lat: 0.4150, lon: 9.4550 },
+    "Rio": { commune: "Libreville", lat: 0.4050, lon: 9.4550 },
+    "Belle-Vue": { commune: "Libreville", lat: 0.4000, lon: 9.4600 },
+    "Kinguélé": { commune: "Libreville", lat: 0.4100, lon: 9.4700 },
+    "Mindoubé": { commune: "Libreville", lat: 0.3700, lon: 9.4850 },
+    "Sablière": { commune: "Libreville", lat: 0.4650, lon: 9.3950 },
+    "Plaine-Orety": { commune: "Libreville", lat: 0.3980, lon: 9.4480 }
+  };
+
+  // Compléter le catalogue avec les quartiers des établissements qui n'y figureraient pas encore
+  etablissements.forEach(e => {
+    if (e.quartier && !CATALOGUE_QUARTIERS[e.quartier]) {
+      CATALOGUE_QUARTIERS[e.quartier] = {
+        commune: e.commune || "Libreville",
+        lat: Number(e.latitude),
+        lon: Number(e.longitude)
+      };
+    }
+  });
+
+  // Calcul Haversine de la distance entre deux points en km
+  function distanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Rayon moyen de la Terre en km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  // Initialisation de la carte Leaflet
+  const map = L.map('map', { zoomControl: true }).setView([0.395, 9.465], 12);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   const rootStyle = getComputedStyle(document.documentElement);
@@ -23,27 +255,715 @@
   const gabonYellow = rootStyle.getPropertyValue('--gabon-yellow').trim() || '#FCD116';
   const gabonBlue = rootStyle.getPropertyValue('--gabon-blue').trim() || '#3A75C4';
 
-  const iconEtab = L.divIcon({
-    className: '',
-    html: `<div style="background:${gabonGreen};width:16px;height:16px;border-radius:4px;border:2px solid ${gabonYellow};"></div>`,
-    iconSize: [16, 16]
+  // Map des établissements pour résolution rapide
+  const etabMap = new Map(etablissements.map(e => [e.id, e]));
+
+  // Icônes personnalisées Leaflet
+  const createEtabIcon = (inZone = true) => L.divIcon({
+    className: 'etab-marker-icon',
+    html: `<div style="background:${inZone ? gabonGreen : '#94a3b8'};width:18px;height:18px;border-radius:5px;border:2px solid ${inZone ? gabonYellow : '#cbd5e1'};box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:all 0.2s ease;"></div>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9],
+    popupAnchor: [0, -10]
   });
 
-  const iconEleve = L.divIcon({
-    className: '',
-    html: `<div style="background:${gabonBlue};width:10px;height:10px;border-radius:50%;border:2px solid #fff;"></div>`,
-    iconSize: [10, 10]
+  const createQuartierCenterIcon = () => L.divIcon({
+    className: 'quartier-center-icon',
+    html: `<div style="position:relative;width:24px;height:24px;display:flex;align-items:center;justify-content:center;">
+             <div style="position:absolute;inset:0;background:rgba(58,117,196,0.3);border-radius:50%;animation:leaflet-pulse 2s infinite ease-out;"></div>
+             <div style="background:${gabonBlue};width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 6px rgba(0,0,0,0.6);"></div>
+           </div>`,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12]
   });
 
+  // Icônes élèves selon leur statut d'affectation
+  const createEleveIcon = (statut) => {
+    let bg = '#3A75C4';
+    let size = 11;
+    if (statut === 'affecte') {
+      bg = '#009543'; // vert Gabon
+      size = 12;
+    } else if (statut === 'liste_attente') {
+      bg = '#eab308'; // jaune ambré
+      size = 11;
+    } else if (statut === 'non_affecte') {
+      bg = '#ef4444'; // rouge
+      size = 10;
+    }
+    return L.divIcon({
+      className: 'eleve-marker-icon',
+      html: `<div style="background:${bg};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #ffffff;box-shadow:0 1px 5px rgba(0,0,0,0.45);cursor:pointer;" title="${statut || 'Candidat'}"></div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+      popupAnchor: [0, -size / 2 - 4]
+    });
+  };
+
+  // Traçage d'une ligne reliant l'élève affecté à son établissement
+  let activeLiaisonLine = null;
+  function tracerLiaisonEleve(eleve) {
+    if (activeLiaisonLine) {
+      map.removeLayer(activeLiaisonLine);
+      activeLiaisonLine = null;
+    }
+    if (!eleve || !eleve.etablissement_affecte) return;
+    const etab = etabMap.get(eleve.etablissement_affecte);
+    if (!etab) return;
+    const lat1 = Number(eleve.latitude);
+    const lon1 = Number(eleve.longitude);
+    const lat2 = Number(etab.latitude);
+    const lon2 = Number(etab.longitude);
+    if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) return;
+
+    activeLiaisonLine = L.polyline([[lat1, lon1], [lat2, lon2]], {
+      color: '#009543',
+      weight: 3.5,
+      dashArray: '6, 6',
+      opacity: 0.9
+    }).addTo(map);
+
+    const distText = (eleve.distance_affectation_km !== undefined && eleve.distance_affectation_km !== null)
+      ? `${eleve.distance_affectation_km.toFixed(1)} km`
+      : `${distanceKm(lat1, lon1, lat2, lon2).toFixed(1)} km`;
+
+    activeLiaisonLine.bindTooltip(`Trajet proximité : ${eleve.prenom} ${eleve.nom} ➔ ${etab.nom} (${distText})`, {
+      sticky: true
+    });
+  }
+
+  // Infobulle pour un élève candidat
+  function buildElevePopupHtml(eleve) {
+    const etabAssigne = eleve.etablissement_affecte ? etabMap.get(eleve.etablissement_affecte) : null;
+    const nomEtab = etabAssigne ? etabAssigne.nom : eleve.etablissement_affecte;
+
+    let statutBadge = '';
+    if (eleve.statut === 'affecte') {
+      statutBadge = `
+        <div style="background:rgba(0,149,67,0.12); border:1px solid #009543; color:#007535; padding:6px 10px; border-radius:8px; font-size:0.8rem; font-weight:700; margin-bottom:8px;">
+          <div style="display:flex; align-items:center; gap:4px;">
+            <span>✅</span> <span>AFFECTÉ(E) EN 6ÈME</span>
+          </div>
+          <div style="font-size:0.88rem; color:var(--text); margin-top:3px; font-weight:800;">
+            ${nomEtab || 'Établissement affecté'}
+          </div>
+          <div style="font-size:0.75rem; color:var(--muted); font-weight:600; margin-top:2px;">
+            Proximité : 📍 ${eleve.distance_affectation_km !== undefined && eleve.distance_affectation_km !== null ? eleve.distance_affectation_km.toFixed(1) + ' km du domicile' : 'Calculée'}
+          </div>
+        </div>
+      `;
+    } else if (eleve.statut === 'liste_attente') {
+      statutBadge = `
+        <div style="background:rgba(234,179,8,0.12); border:1px solid #eab308; color:#854d0e; padding:6px 10px; border-radius:8px; font-size:0.8rem; font-weight:700; margin-bottom:8px;">
+          ⏳ EN LISTE D'ATTENTE
+          <div style="font-size:0.75rem; font-weight:500; margin-top:2px;">
+            Capacités d'accueil saturées sur les vœux formulés.
+          </div>
+        </div>
+      `;
+    } else if (eleve.statut === 'non_affecte') {
+      statutBadge = `
+        <div style="background:rgba(239,68,68,0.12); border:1px solid #ef4444; color:#991b1b; padding:6px 10px; border-radius:8px; font-size:0.8rem; font-weight:700; margin-bottom:8px;">
+          ❌ NON AFFECTÉ(E)
+          <div style="font-size:0.75rem; font-weight:500; margin-top:2px;">
+            Moyenne générale inférieure au seuil d'admission (10.0/20).
+          </div>
+        </div>
+      `;
+    } else {
+      statutBadge = `
+        <div style="background:rgba(58,117,196,0.12); border:1px solid #3A75C4; color:#1e40af; padding:5px 8px; border-radius:6px; font-size:0.75rem; font-weight:600; margin-bottom:8px;">
+          📋 Candidat inscrit — En attente du calcul d'affectation
+        </div>
+      `;
+    }
+
+    let voeuxHtml = '';
+    if (Array.isArray(eleve.voeux) && eleve.voeux.length > 0) {
+      const voeuxList = eleve.voeux.map((vId, idx) => {
+        const vEtab = etabMap.get(vId);
+        const vNom = vEtab ? vEtab.nom : vId;
+        const estAffecteIci = (eleve.etablissement_affecte === vId);
+        return `<li style="margin-bottom:2px; ${estAffecteIci ? 'font-weight:700; color:#009543;' : ''}">
+          Vœu ${idx + 1} : ${vNom} ${estAffecteIci ? '✔ (Retenu)' : ''}
+        </li>`;
+      }).join('');
+      voeuxHtml = `
+        <div style="font-size:0.75rem; margin-top:6px; border-top:1px solid var(--line); padding-top:6px;">
+          <div style="font-weight:700; color:var(--text); margin-bottom:3px;">Vœux scolaires :</div>
+          <ol style="margin:0; padding-left:1.1rem; color:var(--muted); line-height:1.3;">
+            ${voeuxList}
+          </ol>
+        </div>
+      `;
+    }
+
+    return `
+      <div style="min-width:210px; max-width:275px;">
+        <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--muted); margin-bottom:2px;">
+          Candidat 6ème #${eleve.id || ''}
+        </div>
+        <h3 style="margin:0 0 4px 0; font-size:1.05rem; font-weight:800; color:var(--text);">
+          ${eleve.prenom} ${eleve.nom}
+        </h3>
+        <div style="font-size:0.78rem; color:var(--muted); margin-bottom:6px;">
+          🏠 ${eleve.adresse || 'Libreville'}
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--surface-alt); padding:4px 8px; border-radius:6px; margin-bottom:8px; font-size:0.8rem;">
+          <span style="font-weight:600; color:var(--text);">Moyenne générale :</span>
+          <strong style="color:var(--primary); font-size:0.95rem;">${eleve.moyenne_generale}/20</strong>
+        </div>
+        ${statutBadge}
+        ${voeuxHtml}
+      </div>
+    `;
+  }
+
+  // Gestionnaires de couches Leaflet
+  const etablissementMarkers = new Map(); // id -> marker
+  const eleveMarkers = []; // { marker, data }
+  let quartierCenterMarker = null;
+  let searchRadiusCircle = null;
+
+  // Variables d'état de recherche
+  let currentQuartier = null; // { nom, commune, lat, lon }
+  let currentRadiusKm = 3.0;
+  let currentTypeFilter = "tous";
+  let showEleves = true; // Affichés par défaut sur la carte
+  let currentStatutEleveFilter = "tous";
+  let hideOutsideZone = true;
+
+  // Initialisation des marqueurs d'établissements
   etablissements.forEach(e => {
-    L.marker([e.latitude, e.longitude], {icon: iconEtab}).addTo(map)
-      .bindPopup(`<strong>${e.nom}</strong><br>${e.type} — ${e.quartier}<br>${e.places_restantes}/${e.capacite_6eme} places restantes`);
+    const lat = Number(e.latitude);
+    const lon = Number(e.longitude);
+    if (!isNaN(lat) && !isNaN(lon)) {
+      const marker = L.marker([lat, lon], { icon: createEtabIcon(true) });
+      marker.bindPopup(buildPopupHtml(e, null));
+      marker.on('click', () => {
+        highlightEtablissementCard(e.id);
+      });
+      etablissementMarkers.set(e.id, { marker, data: e });
+      marker.addTo(map);
+    }
   });
 
+  // Initialisation des marqueurs élèves (affichés directement)
   eleves.forEach(e => {
-    L.marker([e.latitude, e.longitude], {icon: iconEleve}).addTo(map)
-      .bindPopup(`<strong>${e.prenom} ${e.nom}</strong><br>Moyenne : ${e.moyenne_generale}/20`);
+    const lat = Number(e.latitude);
+    const lon = Number(e.longitude);
+    if (!isNaN(lat) && !isNaN(lon)) {
+      const marker = L.marker([lat, lon], { icon: createEleveIcon(e.statut) });
+      marker.bindPopup(buildElevePopupHtml(e));
+      marker.on('click', () => {
+        tracerLiaisonEleve(e);
+      });
+      eleveMarkers.push({ marker, data: e });
+      if (showEleves) {
+        marker.addTo(map);
+      }
+    }
   });
+
+  // Si des élèves n'ont pas encore de statut, afficher l'élément dans la légende
+  const hasElevesSansStatut = eleves.some(e => !e.statut);
+  const legendSansStatutEl = document.getElementById('legend-eleve-sans-statut');
+  if (legendSansStatutEl) {
+    legendSansStatutEl.style.display = hasElevesSansStatut ? 'flex' : 'none';
+  }
+
+  // Fonction de filtrage et visibilité des élèves
+  function updateElevesVisibility() {
+    if (activeLiaisonLine) {
+      map.removeLayer(activeLiaisonLine);
+      activeLiaisonLine = null;
+    }
+    eleveMarkers.forEach(({ marker, data }) => {
+      let visible = showEleves;
+      if (visible && currentStatutEleveFilter !== 'tous') {
+        visible = (data.statut === currentStatutEleveFilter);
+      }
+      if (visible) {
+        if (!map.hasLayer(marker)) marker.addTo(map);
+      } else {
+        if (map.hasLayer(marker)) map.removeLayer(marker);
+      }
+    });
+  }
+
+  // Fonction de construction des infobulles Popups
+  function buildPopupHtml(etab, distKm) {
+    const placesRestantes = etab.places_restantes !== undefined ? etab.places_restantes : Math.max(0, (etab.capacite_6eme || 0) - (etab.places_occupees || 0));
+    return `
+      <div style="min-width:190px;">
+        <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--primary); margin-bottom:2px;">
+          ${etab.type || 'Établissement'} • ${etab.commune || 'Libreville'}
+        </div>
+        <h3 style="margin:0 0 6px 0; font-size:0.95rem; font-weight:800; color:var(--text);">
+          ${etab.nom}
+        </h3>
+        <div style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">
+          Quartier : <strong>${etab.quartier || 'Centre'}</strong>
+        </div>
+        ${distKm !== null ? `
+          <div style="margin-bottom:6px; display:inline-block; background:rgba(15,118,110,0.1); color:var(--primary); padding:2px 8px; border-radius:12px; font-weight:700; font-size:0.75rem;">
+            📍 à ${distKm.toFixed(1)} km du quartier
+          </div>
+        ` : ''}
+        <div style="font-size:0.78rem; border-top:1px solid var(--line); padding-top:6px; margin-top:4px;">
+          Capacité 6ème : <strong>${etab.capacite_6eme || 100}</strong><br>
+          Places restantes : <strong style="color:${placesRestantes > 0 ? 'var(--gabon-green)' : 'var(--danger)'};">${placesRestantes}</strong>
+        </div>
+      </div>
+    `;
+  }
+
+  // Remplissage du <select id="select-quartier">
+  const selectQuartierEl = document.getElementById('select-quartier');
+  const inputQuartierEl = document.getElementById('input-quartier');
+  const suggestionsBox = document.getElementById('quartier-suggestions');
+  const selectRayonEl = document.getElementById('select-rayon');
+  const selectTypeEl = document.getElementById('select-type');
+  const toggleElevesEl = document.getElementById('toggle-eleves');
+  const toggleMasquerHorsZoneEl = document.getElementById('toggle-masquer-hors-zone');
+  const statutRechercheEl = document.getElementById('statut-recherche');
+  const listeEcolesPanel = document.getElementById('liste-ecoles-panel');
+  const labelCountEl = document.getElementById('label-resultats-count');
+  const badgeZoneEl = document.getElementById('badge-zone-selectionnee');
+  const legendQuartierItem = document.getElementById('legend-quartier-item');
+  const legendElevesElements = document.querySelectorAll('#legend-eleve-affecte, #legend-eleve-attente, #legend-eleve-non, #legend-eleve-sans-statut');
+
+  // Trier les quartiers par commune puis nom
+  const sortedQuartiers = Object.keys(CATALOGUE_QUARTIERS).sort((a, b) => {
+    const comA = CATALOGUE_QUARTIERS[a].commune || "";
+    const comB = CATALOGUE_QUARTIERS[b].commune || "";
+    if (comA !== comB) return comA.localeCompare(comB);
+    return a.localeCompare(b);
+  });
+
+  sortedQuartiers.forEach(qNom => {
+    const qData = CATALOGUE_QUARTIERS[qNom];
+    const opt = document.createElement('option');
+    opt.value = qNom;
+    opt.textContent = `${qNom} (${qData.commune})`;
+    selectQuartierEl.appendChild(opt);
+  });
+
+  // Mettre à jour l'affichage complet (Carte + Panneau de résultats)
+  function updateMapAndResults() {
+    let resultats = [];
+
+    // Si aucun quartier sélectionné : vue globale
+    if (!currentQuartier) {
+      if (quartierCenterMarker) {
+        map.removeLayer(quartierCenterMarker);
+        quartierCenterMarker = null;
+      }
+      if (searchRadiusCircle) {
+        map.removeLayer(searchRadiusCircle);
+        searchRadiusCircle = null;
+      }
+      legendQuartierItem.style.display = 'none';
+
+      badgeZoneEl.textContent = 'Grand Libreville (Tous)';
+      statutRechercheEl.textContent = 'Vue d\'ensemble';
+
+      etablissements.forEach(e => {
+        // Filtrer par type si demandé
+        if (currentTypeFilter !== "tous" && e.type !== currentTypeFilter) {
+          const entry = etablissementMarkers.get(e.id);
+          if (entry && map.hasLayer(entry.marker)) map.removeLayer(entry.marker);
+          return;
+        }
+
+        const entry = etablissementMarkers.get(e.id);
+        if (entry) {
+          entry.marker.setIcon(createEtabIcon(true));
+          entry.marker.setPopupContent(buildPopupHtml(e, null));
+          if (!map.hasLayer(entry.marker)) entry.marker.addTo(map);
+        }
+
+        resultats.push({ ...e, distance_km: null });
+      });
+
+      // Tri alphabétique par défaut
+      resultats.sort((a, b) => a.nom.localeCompare(b.nom));
+      labelCountEl.textContent = `${resultats.length} structures disponibles`;
+      renderResultsList(resultats, false);
+      return;
+    }
+
+    // Un quartier est sélectionné
+    const qLat = currentQuartier.lat;
+    const qLon = currentQuartier.lon;
+    const qNom = currentQuartier.nom;
+    const qCommune = currentQuartier.commune;
+
+    badgeZoneEl.textContent = `${qNom} (${qCommune})`;
+    statutRechercheEl.textContent = `Rayon de ${currentRadiusKm === 999 ? '∞' : currentRadiusKm + ' km'} autour de ${qNom}`;
+    legendQuartierItem.style.display = 'flex';
+
+    // 1. Placer ou déplacer le marqueur de centre de quartier
+    if (!quartierCenterMarker) {
+      quartierCenterMarker = L.marker([qLat, qLon], { icon: createQuartierCenterIcon() }).addTo(map);
+    } else {
+      quartierCenterMarker.setLatLng([qLat, qLon]);
+      if (!map.hasLayer(quartierCenterMarker)) quartierCenterMarker.addTo(map);
+    }
+    quartierCenterMarker.bindPopup(`<strong>Quartier : ${qNom}</strong><br>Commune : ${qCommune}<br>Centre de la recherche de proximité`).openPopup();
+
+    // 2. Tracer le cercle de rayon
+    if (searchRadiusCircle) map.removeLayer(searchRadiusCircle);
+    if (currentRadiusKm < 999) {
+      searchRadiusCircle = L.circle([qLat, qLon], {
+        radius: currentRadiusKm * 1000,
+        color: gabonGreen,
+        fillColor: gabonGreen,
+        fillOpacity: 0.12,
+        weight: 2,
+        dashArray: '4, 6'
+      }).addTo(map);
+    }
+
+    // 3. Calculer les distances et filtrer
+    const inZoneMarkers = [];
+
+    etablissements.forEach(e => {
+      const eLat = Number(e.latitude);
+      const eLon = Number(e.longitude);
+      const dist = distanceKm(qLat, qLon, eLat, eLon);
+      const inZone = dist <= currentRadiusKm;
+
+      // Filtre par type
+      const matchType = (currentTypeFilter === "tous" || e.type === currentTypeFilter);
+      const entry = etablissementMarkers.get(e.id);
+
+      if (entry) {
+        entry.marker.setPopupContent(buildPopupHtml(e, dist));
+
+        if (matchType && inZone) {
+          entry.marker.setIcon(createEtabIcon(true));
+          if (!map.hasLayer(entry.marker)) entry.marker.addTo(map);
+          inZoneMarkers.push(entry.marker);
+        } else if (matchType && !inZone && !hideOutsideZone) {
+          entry.marker.setIcon(createEtabIcon(false));
+          if (!map.hasLayer(entry.marker)) entry.marker.addTo(map);
+        } else {
+          if (map.hasLayer(entry.marker)) map.removeLayer(entry.marker);
+        }
+      }
+
+      if (matchType && inZone) {
+        resultats.push({ ...e, distance_km: dist });
+      }
+    });
+
+    // Tri par distance croissante (le plus proche en tête)
+    resultats.sort((a, b) => a.distance_km - b.distance_km);
+
+    // Ajuster le cadrage de la carte
+    if (searchRadiusCircle) {
+      map.fitBounds(searchRadiusCircle.getBounds(), { padding: [30, 30], maxZoom: 15 });
+    } else {
+      map.flyTo([qLat, qLon], 13);
+    }
+
+    labelCountEl.textContent = `${resultats.length} écoles trouvées à proximité`;
+    renderResultsList(resultats, true);
+  }
+
+  // Rendu HTML de la liste des écoles trouvées
+  function renderResultsList(items, hasDistance = false) {
+    listeEcolesPanel.innerHTML = '';
+
+    if (items.length === 0) {
+      listeEcolesPanel.innerHTML = `
+        <div style="padding:1.5rem; text-align:center; color:var(--muted); background:var(--surface-alt); border-radius:12px; border:1px dashed var(--line);">
+          <div style="font-size:2rem; margin-bottom:0.5rem;">🏫</div>
+          <div style="font-weight:700; color:var(--text); margin-bottom:0.35rem;">Aucun établissement trouvé dans ce périmètre</div>
+          <p style="font-size:0.82rem; margin:0 0 1rem 0;">
+            Essayez d'augmenter le rayon de recherche à 3 km ou 5 km pour découvrir les structures avoisinantes.
+          </p>
+          <button type="button" class="btn btn-primary" style="font-size:0.78rem; padding:0.4rem 0.8rem;" onclick="elargirRayon(5)">
+            Élargir à 5 km
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    items.forEach(e => {
+      const placesRestantes = e.places_restantes !== undefined ? e.places_restantes : Math.max(0, (e.capacite_6eme || 0) - (e.places_occupees || 0));
+      const div = document.createElement('div');
+      div.className = 'carte-ecole-item';
+      div.id = `card-ecole-${e.id}`;
+
+      let distanceBadge = '';
+      if (hasDistance && e.distance_km !== null) {
+        let distColor = '#009543'; // vert si très proche < 1.5km
+        if (e.distance_km > 3.0) distColor = '#E89B2B'; // ambre si > 3km
+        else if (e.distance_km > 1.5) distColor = '#2563EB'; // bleu
+
+        distanceBadge = `
+          <span style="font-size:0.75rem; font-weight:800; color:${distColor}; background:rgba(0,0,0,0.05); padding:2px 7px; border-radius:10px;">
+            📍 ${e.distance_km.toFixed(1)} km
+          </span>
+        `;
+      }
+
+      div.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; margin-bottom:0.25rem;">
+          <h3 style="font-size:0.92rem; font-weight:800; margin:0; color:var(--text); line-height:1.25;">
+            ${e.nom}
+          </h3>
+          ${distanceBadge}
+        </div>
+
+        <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.4rem; font-size:0.75rem;">
+          <span class="badge" style="background:${e.type === 'public' ? 'rgba(0,149,67,0.1)' : 'rgba(58,117,196,0.1)'}; color:${e.type === 'public' ? 'var(--gabon-green)' : 'var(--gabon-blue)'};">
+            ${e.type ? e.type.toUpperCase() : 'PUBLIC'}
+          </span>
+          <span style="color:var(--muted); font-weight:600;">• ${e.quartier || 'Quartier'} (${e.commune || 'Libreville'})</span>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; border-top:1px solid var(--line); padding-top:0.4rem; margin-top:0.4rem;">
+          <span style="color:var(--muted);">
+            Capacité : <strong>${e.capacite_6eme}</strong> | Places : <strong style="color:${placesRestantes > 0 ? 'var(--gabon-green)' : 'var(--danger)'};">${placesRestantes}</strong>
+          </span>
+          <button type="button" class="btn btn-ghost" style="padding:0.25rem 0.6rem; font-size:0.72rem;" onclick="focusEtablissement('${e.id}')">
+            Localiser ↗
+          </button>
+        </div>
+      `;
+
+      div.addEventListener('click', (ev) => {
+        if (!ev.target.closest('button')) {
+          focusEtablissement(e.id);
+        }
+      });
+
+      listeEcolesPanel.appendChild(div);
+    });
+  }
+
+  // Centrer et ouvrir le popup d'une école spécifique
+  window.focusEtablissement = function(id) {
+    const entry = etablissementMarkers.get(id);
+    if (entry) {
+      if (!map.hasLayer(entry.marker)) entry.marker.addTo(map);
+      map.flyTo(entry.marker.getLatLng(), 15, { duration: 0.8 });
+      setTimeout(() => {
+        entry.marker.openPopup();
+      }, 850);
+      highlightEtablissementCard(id);
+    }
+  };
+
+  // Mettre en surbrillance la carte dans la liste
+  function highlightEtablissementCard(id) {
+    document.querySelectorAll('.carte-ecole-item').forEach(el => el.classList.remove('is-selected'));
+    const card = document.getElementById(`card-ecole-${id}`);
+    if (card) {
+      card.classList.add('is-selected');
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  // Élargir le rayon en un clic
+  window.elargirRayon = function(km) {
+    selectRayonEl.value = String(km);
+    currentRadiusKm = km;
+    updateMapAndResults();
+  };
+
+  // Sélectionner un quartier par son nom
+  function setQuartier(nom) {
+    if (!nom || nom === "") {
+      currentQuartier = null;
+      inputQuartierEl.value = "";
+      selectQuartierEl.value = "";
+      updateActiveChip("");
+    } else if (CATALOGUE_QUARTIERS[nom]) {
+      currentQuartier = {
+        nom: nom,
+        ...CATALOGUE_QUARTIERS[nom]
+      };
+      inputQuartierEl.value = nom;
+      selectQuartierEl.value = nom;
+      updateActiveChip(nom);
+    }
+    updateMapAndResults();
+  }
+
+  function updateActiveChip(nom) {
+    document.querySelectorAll('.carte-chip').forEach(chip => {
+      const q = chip.getAttribute('data-quartier');
+      if (q === nom) {
+        chip.classList.add('is-active');
+      } else {
+        chip.classList.remove('is-active');
+      }
+    });
+  }
+
+  // Écouteurs d'événements : sélecteur de quartier
+  selectQuartierEl.addEventListener('change', (e) => {
+    setQuartier(e.target.value);
+  });
+
+  // Écouteur : Rayon
+  selectRayonEl.addEventListener('change', (e) => {
+    currentRadiusKm = parseFloat(e.target.value) || 3.0;
+    updateMapAndResults();
+  });
+
+  // Écouteur : Type
+  selectTypeEl.addEventListener('change', (e) => {
+    currentTypeFilter = e.target.value;
+    updateMapAndResults();
+  });
+
+  // Écouteur : Filtre statut des élèves
+  const selectStatutElevesEl = document.getElementById('select-statut-eleves');
+  if (selectStatutElevesEl) {
+    selectStatutElevesEl.addEventListener('change', (e) => {
+      currentStatutEleveFilter = e.target.value;
+      updateElevesVisibility();
+    });
+  }
+
+  // Écouteur : Toggle élèves
+  toggleElevesEl.addEventListener('change', (e) => {
+    showEleves = e.target.checked;
+    const legendeEleves = document.querySelectorAll('#legend-eleve-affecte, #legend-eleve-attente, #legend-eleve-non, #legend-eleve-sans-statut');
+    legendeEleves.forEach(el => el.style.display = showEleves ? 'flex' : 'none');
+    updateElevesVisibility();
+  });
+
+  // Écouteur : Masquer hors zone
+  toggleMasquerHorsZoneEl.addEventListener('change', (e) => {
+    hideOutsideZone = e.target.checked;
+    updateMapAndResults();
+  });
+
+  // Écouteurs : Chips d'accès rapide
+  document.querySelectorAll('.carte-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const q = chip.getAttribute('data-quartier');
+      setQuartier(q);
+    });
+  });
+
+  // Bouton réinitialiser vue d'ensemble
+  document.getElementById('btn-reinit-global').addEventListener('click', () => {
+    setQuartier("");
+    map.flyTo([0.395, 9.465], 12);
+  });
+
+  // Système de recherche avec suggestions dynamiques
+  inputQuartierEl.addEventListener('input', (e) => {
+    const val = e.target.value.trim().toLowerCase();
+    if (val.length < 1) {
+      suggestionsBox.style.display = 'none';
+      return;
+    }
+
+    const matches = Object.keys(CATALOGUE_QUARTIERS).filter(q => 
+      q.toLowerCase().includes(val) || (CATALOGUE_QUARTIERS[q].commune && CATALOGUE_QUARTIERS[q].commune.toLowerCase().includes(val))
+    );
+
+    if (matches.length === 0) {
+      suggestionsBox.innerHTML = `
+        <div style="padding:0.75rem 1rem; font-size:0.8rem; color:var(--muted);">
+          Aucun quartier répertorié pour "<em>${val}</em>".
+          <div style="margin-top:0.4rem;">
+            <button type="button" id="btn-geocode-search" class="btn btn-ghost" style="font-size:0.72rem; padding:0.3rem 0.6rem;">
+              Localiser via OpenStreetMap ↗
+            </button>
+          </div>
+        </div>
+      `;
+      suggestionsBox.style.display = 'block';
+
+      const btnGeocode = document.getElementById('btn-geocode-search');
+      if (btnGeocode) {
+        btnGeocode.addEventListener('click', () => {
+          geocodeAndSearch(e.target.value.trim());
+          suggestionsBox.style.display = 'none';
+        });
+      }
+      return;
+    }
+
+    suggestionsBox.innerHTML = '';
+    matches.forEach(m => {
+      const qData = CATALOGUE_QUARTIERS[m];
+      const item = document.createElement('div');
+      item.style.padding = '0.6rem 0.9rem';
+      item.style.cursor = 'pointer';
+      item.style.fontSize = '0.84rem';
+      item.style.borderBottom = '1px solid var(--line)';
+      item.style.display = 'flex';
+      item.style.justifyContent = 'space-between';
+      item.style.alignItems = 'center';
+
+      item.innerHTML = `
+        <span style="font-weight:700; color:var(--text);">${m}</span>
+        <span style="font-size:0.75rem; color:var(--muted);">${qData.commune}</span>
+      `;
+
+      item.addEventListener('mouseenter', () => item.style.background = 'var(--surface-alt)');
+      item.addEventListener('mouseleave', () => item.style.background = 'transparent');
+      item.addEventListener('click', () => {
+        setQuartier(m);
+        suggestionsBox.style.display = 'none';
+      });
+
+      suggestionsBox.appendChild(item);
+    });
+
+    suggestionsBox.style.display = 'block';
+  });
+
+  // Fermer les suggestions si on clique ailleurs
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#carte-search-container')) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+
+  // Géocodage dynamique pour quartier ou lieu spécifique
+  async function geocodeAndSearch(query) {
+    statutRechercheEl.textContent = `Recherche géographique pour "${query}"...`;
+    try {
+      const resp = await fetch(`/api/geocode?adresse=${encodeURIComponent(query)}`);
+      const data = await resp.json();
+      if (data && data.latitude && data.longitude) {
+        currentQuartier = {
+          nom: query,
+          commune: "Grand Libreville",
+          lat: data.latitude,
+          lon: data.longitude
+        };
+        updateMapAndResults();
+      } else {
+        alert("Impossible de localiser cette zone avec précision. Veuillez sélectionner un quartier parmi les suggestions.");
+      }
+    } catch (err) {
+      alert("Erreur lors de la localisation.");
+    }
+  }
+
+  // Démarrage initial : Vue d'ensemble
+  updateMapAndResults();
 </script>
 
+<style>
+@keyframes leaflet-pulse {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+</style>
+
 <%- include('partials/footer') %>
+
